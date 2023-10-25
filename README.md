@@ -1,1 +1,3 @@
-# tech_blog_project
+# Django blog project
+
+git test
