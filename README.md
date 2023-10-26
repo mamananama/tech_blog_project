@@ -1,3 +1,3 @@
 # Django blog project
 
-notion link: <https://brainy-owl-a41.notion.site/0b91c78b666f4b3f85f7324d4a67d1fa?pvs=4>
+notion link: <https://brainy-owl-a41.notion.site/MAIN-17a3cfced93e4a7a8b89d9afe32826ea?pvs=4>
