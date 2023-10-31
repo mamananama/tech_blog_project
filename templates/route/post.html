@@ -1,0 +1,18 @@
+<h2>{{post.route.name}}</h2>
+<h3>{{post.title}}</h3>
+<p>작성자: <span style="font-weight: bold">{{post.author.username}}</span></p>
+<p>작성일: {{post.created_at}}</p>
+{% if post.created_at != post.updated_at %}
+<p>수정일: {{post.updated_at}}</p>
+{% endif %}
+<div>
+	<div>
+		{% if post.image %}
+		<a href="{{post.image.url}}" target="_blank">
+			<img src="{{post.image.url}}" width="400px" />
+		</a>
+		{% endif %}
+	</div>
+	<div>{{post.content}}</div>
+</div>
+<div><a href="{{request.path}}..">뒤로가기</a></div>
