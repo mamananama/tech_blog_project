@@ -1,8 +1,18 @@
 {% for post in posts %}
-<a href="{{request.path}}{{post.pk}}/"><h3>{{post.title}}</h3></a>
-{% if post.created_at != post.updated_at %}
-<p>수정됨: {{post.updated_at}}</p>
-{% else %}
-<p>작성됨: {{post.created_at}}</p>
-<p>{{post.author.username}}</p>
-{% endif %} {% endfor %}
+<div>
+    <a href="{{request.path}}{{post.pk}}/">
+        <h3>{{post.title}}</h3>
+    </a>
+    {% if post.created_at != post.updated_at %}
+    <p>수정됨: {{post.updated_at}}</p>
+    {% else %}
+            <p>작성됨: {{post.created_at}}</p>
+            <p>{{post.author.username}}</p>
+    {% endif %} 
+</div>    
+{% endfor %}
+<p>
+    <a href={% url "station:list" %}>스테이션으로</a>
+</p>
+
+{% include 'station' %}

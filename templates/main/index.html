@@ -13,10 +13,11 @@
 					<h1>TRAIN__</h1>
 				</div>
 				<div>
-					<div>Login</div>
-					<div>Sign up</div>
+					<div><a href={% url "account:login" %}>Login</a></div>
+					<div><a href={% url "account:signup" %}>Sign up</a></div>
 					<div>Log out</div>
 				</div>
+				<div><a href={% url "station:list" %}>STATION</a></div>
 			</nav>
 		</div>
 

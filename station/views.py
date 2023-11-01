@@ -7,7 +7,6 @@ from django.urls import reverse, reverse_lazy, is_valid_path
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 
 from .models import Post, Route
-from .forms import PostForm
 
 
 class PostList(ListView):
@@ -25,18 +24,8 @@ class PostList(ListView):
         return queryset
 
 
-class PostCreate(LoginRequiredMixin, CreateView):
-    model = Post
-    form_class = PostForm
-    template_name = 'station/create.html'
-
-    def form_valid(self, form):
-        post = form.save(commit=False)
-        post.author = self.request.user
-        return super().form_valid(form)
-
-    def get_success_url(self):
-        return reverse('station:list')
+class RouteCreateView(CreateView):
+    model = Route
 
 
 class RouteList(ListView):
@@ -54,4 +43,4 @@ class RouteCreate(LoginRequiredMixin, CreateView):
 
 
 list = RouteList.as_view()
-create = PostCreate.as_view()
+# create = PostCreate.as_view()

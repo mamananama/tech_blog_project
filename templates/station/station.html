@@ -1,3 +1,6 @@
 {% for r in routes %}
-<p> <a href="route/{{r.name}}/">{{ r.name }}</a> </p>
+<p><a href="route/{{r.name}}/">{{ r.name }}</a></p>
 {% endfor %}
+<p>
+    <a href={% url "main:index" %}>홈으로</a>
+</p>

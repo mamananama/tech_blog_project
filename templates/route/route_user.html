@@ -1,0 +1,10 @@
+<article>
+	<p>Route 참여자: {{route_posts.count}}명</p>
+	{% for route_post in route_posts %}
+	<div>
+		<div>
+			<span>{{route_post.author__username}}</span>
+		</div>
+	</div>
+	{% endfor %}
+</article>

@@ -15,4 +15,11 @@
 	</div>
 	<div>{{post.content}}</div>
 </div>
+{% if user == post.author %}
+<div>
+	<a href="{{request.path}}edit/">수정하기</a>
+	<a href="{{request.path}}delete/">삭제하기</a>
+</div>
+{% endif %}
+
 <div><a href="{{request.path}}..">뒤로가기</a></div>
