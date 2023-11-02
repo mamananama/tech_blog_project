@@ -5,6 +5,5 @@ app_name = 'station'
 
 urlpatterns = [
     path('', views.list, name='list'),
-    # path('create/', views.create, name='create'),
-    # path('station/route/', include('route.urls')),
+    path('create/', views.route_create, name='route_create'),
 ]

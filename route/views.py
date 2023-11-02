@@ -1,14 +1,16 @@
+from typing import Any
 from django.shortcuts import render
 from django.views.generic import ListView, CreateView, DeleteView, DetailView, UpdateView
 from django.db.models import Q
 from django.urls import reverse_lazy, reverse
 from django.contrib.auth.mixins import LoginRequiredMixin
 
-from station.models import Post, Route
+from station.models import Post
+from .models import Route
 from station.forms import PostForm
 
 
-class PostView(ListView):
+class PostListView(ListView):
     model = Post
     template_name = 'route/route.html'
     context_object_name = 'posts'
@@ -19,6 +21,15 @@ class PostView(ListView):
         queryset = queryset.filter(
             Q(route__name__icontains=self.kwargs['tag_name']))
         return queryset
+
+    def get_context_data(self, **kwargs: Any):
+        context = super().get_context_data(**kwargs)
+        route_user = Post.objects.filter(
+            route__name=self.kwargs['tag_name']).values("author__pk", "author__username").distinct()
+        route = Route.objects.get(name=self.kwargs['tag_name'])
+        context['route_user'] = route_user
+        context['route'] = route
+        return context
 
 
 class PostDetailView(DetailView):
@@ -44,7 +55,6 @@ class PostCreate(LoginRequiredMixin, CreateView):
     def form_valid(self, form):
         post = form.save(commit=False)
         post.author = self.request.user
-        print(f'크왉: {self.kwargs}')
         post.route = Route.objects.get(name=self.kwargs['tag_name'])
         return super().form_valid(form)
 
@@ -52,21 +62,7 @@ class PostCreate(LoginRequiredMixin, CreateView):
         return reverse('route:route_detail', kwargs={'tag_name': self.kwargs['tag_name']})
 
 
-class RouteUserView(ListView):
-    model = Post
-    template_name = 'route/route_user.html'
-    context_object_name = 'route_posts'
-
-    def get_queryset(self):
-        queryset = super().get_queryset()
-        queryset = queryset.filter(
-            route__name=self.kwargs['tag_name']).values("author__pk", "author__username").distinct()
-        print(queryset)
-        return queryset
-
-
-route_detail = PostView.as_view()
+list = PostListView.as_view()
 post_detail = PostDetailView.as_view()
 post_delete = PostDeleteView.as_view()
 post_create = PostCreate.as_view()
-route_user = RouteUserView.as_view()

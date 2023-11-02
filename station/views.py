@@ -6,26 +6,9 @@ from django.db.models import Q
 from django.urls import reverse, reverse_lazy, is_valid_path
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 
-from .models import Post, Route
-
-
-class PostList(ListView):
-    model = Route
-    template_name = 'station/station.html'
-    context_object_name = 'routes'
-    ordering = '-pk'
-
-    def get_queryset(self):
-        queryset = super().get_queryset()
-        q = self.request.GET.get('keyword', '')
-        if q:
-            queryset = queryset.filter(
-                Q(title__iconteains=q) | Q(content__icontains=q)).distinct()
-        return queryset
-
-
-class RouteCreateView(CreateView):
-    model = Route
+from .models import Post
+from route.models import Route
+from route.forms import RouteForm
 
 
 class RouteList(ListView):
@@ -36,11 +19,17 @@ class RouteList(ListView):
 
 class RouteCreate(LoginRequiredMixin, CreateView):
     model = Route
+    form_class = RouteForm
+    template_name = 'station/create.html'
 
     def form_valid(self, form):
-        Route = form.save(commit=False)
+        route = form.save(commit=False)
+        route.cheif = self.request.user
         return super().form_valid(form)
+
+    def get_success_url(self):
+        return reverse('station:list')
 
 
 list = RouteList.as_view()
-# create = PostCreate.as_view()
+route_create = RouteCreate.as_view()

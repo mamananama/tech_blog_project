@@ -1,25 +1,36 @@
-<h2>{{post.route.name}}</h2>
-<h3>{{post.title}}</h3>
-<p>작성자: <span style="font-weight: bold">{{post.author.username}}</span></p>
-<p>작성일: {{post.created_at}}</p>
-{% if post.created_at != post.updated_at %}
-<p>수정일: {{post.updated_at}}</p>
-{% endif %}
-<div>
-	<div>
-		{% if post.image %}
-		<a href="{{post.image.url}}" target="_blank">
-			<img src="{{post.image.url}}" width="400px" />
-		</a>
+{% comment %} 임시 {% endcomment %}
+<head>
+	{% load static %} <link rel="stylesheet" href={% static "css/index.css" %} />
+</head>
+
+<h2>Route: {{post.route.name}}</h2>
+<div class="main-card post">
+	<div class="post-info">
+		<div><h3>{{post.title}}</h3></div>
+		<div>
+			<p>작성자: <span style="font-weight: bold">{{post.author.username}}</span></p>
+		</div>
+		<div><p>작성일: {{post.created_at}}</p></div>
+		{% if post.created_at != post.updated_at %}
+		<div><p>수정일: {{post.updated_at}}</p></div>
 		{% endif %}
 	</div>
-	<div>{{post.content}}</div>
-</div>
-{% if user == post.author %}
-<div>
-	<a href="{{request.path}}edit/">수정하기</a>
-	<a href="{{request.path}}delete/">삭제하기</a>
-</div>
-{% endif %}
+	<div>
+		<div>
+			{% if post.image %}
+			<a href="{{post.image.url}}" target="_blank">
+				<img src="{{post.image.url}}" width="400px" />
+			</a>
+			{% endif %}
+		</div>
+		<div>{{post.content}}</div>
+	</div>
+	{% if user == post.author %}
+	<div>
+		<a href="{{request.path}}edit/">수정하기</a>
+		<a href="{{request.path}}delete/">삭제하기</a>
+	</div>
+	{% endif %}
 
-<div><a href="{{request.path}}..">뒤로가기</a></div>
+	<div><a href="{{request.path}}..">뒤로가기</a></div>
+</div>
