@@ -20,7 +20,7 @@ class RouteList(ListView):
 class RouteCreate(LoginRequiredMixin, CreateView):
     model = Route
     form_class = RouteForm
-    template_name = 'station/create.html'
+    template_name = 'station/route_create.html'
 
     def form_valid(self, form):
         route = form.save(commit=False)
@@ -32,4 +32,4 @@ class RouteCreate(LoginRequiredMixin, CreateView):
 
 
 list = RouteList.as_view()
-route_create = RouteCreate.as_view()
+create = RouteCreate.as_view()

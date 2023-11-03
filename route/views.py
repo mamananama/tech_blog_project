@@ -3,7 +3,7 @@ from django.shortcuts import render
 from django.views.generic import ListView, CreateView, DeleteView, DetailView, UpdateView
 from django.db.models import Q
 from django.urls import reverse_lazy, reverse
-from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 
 from station.models import Post
 from .models import Route
@@ -37,14 +37,12 @@ class PostDetailView(DetailView):
     template_name = 'route/post.html'
     context_object_name = 'post'
 
-
-class PostDeleteView(DeleteView):
-    model = Post
-    template_name = 'route/postdelete.html'
-    context_object_name = 'post'
-
-    def get_success_url(self):
-        return reverse('route:route_detail', kwargs={'tag_name': self.kwargs['tag_name']})
+    def get_object(self, queryset=None):
+        pk = self.kwargs.get('pk')
+        post = Post.objects.get(pk=pk)
+        post.count += 1
+        post.save()
+        return super().get_object(queryset)
 
 
 class PostCreate(LoginRequiredMixin, CreateView):
@@ -59,10 +57,42 @@ class PostCreate(LoginRequiredMixin, CreateView):
         return super().form_valid(form)
 
     def get_success_url(self):
-        return reverse('route:route_detail', kwargs={'tag_name': self.kwargs['tag_name']})
+        return reverse('route:post_detail', kwargs={'tag_name': self.kwargs['tag_name'], 'pk': self.object.id})
+
+
+class PostUpdate(UserPassesTestMixin, UpdateView):
+    model = Post
+    form_class = PostForm
+    template_name = 'station/create.html'
+
+    def form_valid(self, form):
+        post = form.save(commit=False)
+        post.author = self.request.user
+        post.route = Route.objects.get(name=self.kwargs['tag_name'])
+        return super().form_valid(form)
+
+    def get_success_url(self):
+        print(self.kwargs)
+        return reverse('route:post_detail', kwargs={'tag_name': self.kwargs['tag_name'], 'pk': self.kwargs['pk']})
+
+    def test_func(self):
+        return self.get_object().author == self.request.user
+
+
+class PostDeleteView(UserPassesTestMixin, DeleteView):
+    model = Post
+    template_name = 'route/postdelete.html'
+    context_object_name = 'post'
+
+    def get_success_url(self):
+        return reverse('route:list', kwargs={'tag_name': self.kwargs['tag_name']})
+
+    def test_func(self):
+        return self.get_object().author == self.request.user
 
 
 list = PostListView.as_view()
 post_detail = PostDetailView.as_view()
-post_delete = PostDeleteView.as_view()
 post_create = PostCreate.as_view()
+post_edit = PostUpdate.as_view()
+post_delete = PostDeleteView.as_view()

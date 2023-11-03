@@ -11,6 +11,7 @@ class Post(models.Model):
     title = models.CharField(max_length=128)
     content = models.TextField()
     route = models.ForeignKey(Route, on_delete=models.CASCADE)
+    count = models.PositiveIntegerField(default=0)
     file = models.FileField(upload_to='station/files/%Y/%m/%d/', blank=True,
                             null=True, max_length=None, validators=[validate_file_size])
     image = models.ImageField(upload_to='station/images/%Y/%m/%d/', blank=True,

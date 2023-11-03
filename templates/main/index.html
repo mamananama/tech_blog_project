@@ -28,7 +28,11 @@
 				<div class='main-card-title route'><h2>Route</h2></div>
 				<div class='main-card-item-container'>
 					{% for route in routes %}
-					<div class='main-card-item'><a href={% url "route:list" route.name %}>{{route.name}}</a></div>
+					<div class='main-card-item'>
+						<div class='main-card-item-inner'>
+							<a href={% url "route:list" route.name %}>{{route.name}}</a>
+						</div>
+					</div>
 					{% endfor %}
 				</div>
 			</div>

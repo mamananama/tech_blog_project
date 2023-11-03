@@ -14,6 +14,8 @@
 		{% if post.created_at != post.updated_at %}
 		<div><p>수정일: {{post.updated_at}}</p></div>
 		{% endif %}
+		<div><p>조회수: {{post.count}}</p></div>
+		<p></p>
 	</div>
 	<div>
 		<div>
