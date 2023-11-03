@@ -1,0 +1,35 @@
+{% for post in posts.all %}
+<div>
+    <a href="{{request.path}}{{post.pk}}/">
+        <h3>{{post.title}}</h3>
+    </a>
+    {% if post.created_at != post.updated_at %}
+        <p>수정됨: {{post.updated_at}}</p>
+    {% else %}
+        <p>작성됨: {{post.created_at}}</p>
+    {% endif %} 
+    <p>{{post.author.username}}</p>
+</div>    
+{% endfor %}
+<p>
+    <a href='{{request.path}}create/'>글 작성</a>
+</p>
+<p>
+    <a href={% url "station:list" %}>스테이션으로</a>
+</p>
+
+<div>
+    <p>첫 출발일 : {{route.created_at}}</p>
+    <p><span>Route_{{route.name}}</span>의 개척자 : {{route.cheif.username}}</p>
+    <p><span>Route_{{route.name}}</span>에 작성된 글 : {{posts.count}}개</p>
+    <p><span>Route_{{route.name}}</span> 상태 : {{route.status}}</p>
+</div>
+
+<div>
+    <p>Route 참여자: {{route_user.count}}</p>
+    <div>
+    {% for user in route_user.all %}
+        <span><a href="#">{{user.author__username}}</a></span>
+    {% endfor %}
+    </div>
+</div>

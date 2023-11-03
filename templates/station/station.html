@@ -1,0 +1,9 @@
+{% for r in routes %}
+<p><a href="route/{{r.name}}/">{{ r.name }}</a></p>
+{% endfor %}
+<p>
+    <a href={% url "station:create" %}>Route 생성</a>
+</p>
+<p>
+    <a href={% url "main:index" %}>홈으로</a>
+</p>

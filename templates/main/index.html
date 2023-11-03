@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="ko-KR">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		{% load static %}
+		<link rel="stylesheet" href="{% static 'css/index.css' %}">
+		<title>Train</title>
+	</head>
+
+	<body>
+		<div>
+			<nav>
+				<div>
+					<h1 class='title'>TRAIN__</h1>
+				</div>
+				<div>
+					<div><a href={% url "account:login" %}>Login</a></div>
+					<div><a href={% url "account:signup" %}>Sign up</a></div>
+					<div>Log out</div>
+				</div>
+				<div><a href={% url "station:list" %}>STATION</a></div>
+			</nav>
+		</div>
+
+		<div class='main-card-container'>
+			<div class='main-card'>
+				<div class='main-card-title route'><h2>Route</h2></div>
+				<div class='main-card-item-container'>
+					{% for route in routes %}
+					<div class='main-card-item'>
+						<div class='main-card-item-inner'>
+							<a href={% url "route:list" route.name %}>{{route.name}}</a>
+						</div>
+					</div>
+					{% endfor %}
+				</div>
+			</div>
+			<div class='main-card'>
+				<div class='main-card-title hit'><h2>많이 본 글</h2></div>
+				<div>
+					<div>Project</div>
+				</div>
+			</div>
+			<div class='main-card'>
+				<div class='main-card-title recent'><h2>최근 작성 글</h2></div>
+				<div>
+					<div>Project</div>
+				</div>
+			</div>
+		</div>
+	</body>
+</html>
