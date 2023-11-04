@@ -1,7 +1,7 @@
 from typing import Any
 from django.db.models.query import QuerySet
 from django.shortcuts import render
-from django.views.generic import ListView, CreateView
+from django.views.generic import ListView, CreateView, UpdateView
 from django.db.models import Q
 from django.urls import reverse, reverse_lazy, is_valid_path
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
@@ -20,7 +20,7 @@ class RouteList(ListView):
 class RouteCreate(LoginRequiredMixin, CreateView):
     model = Route
     form_class = RouteForm
-    template_name = 'station/route_create.html'
+    template_name = 'station/create.html'
 
     def form_valid(self, form):
         route = form.save(commit=False)

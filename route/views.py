@@ -1,5 +1,5 @@
 from typing import Any
-from django.shortcuts import render
+from django.shortcuts import get_object_or_404, render
 from django.views.generic import ListView, CreateView, DeleteView, DetailView, UpdateView
 from django.db.models import Q
 from django.urls import reverse_lazy, reverse
@@ -8,6 +8,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from station.models import Post
 from .models import Route
 from station.forms import PostForm
+from .forms import RouteForm, RouteEditForm
 
 
 class PostListView(ListView):
@@ -60,25 +61,6 @@ class PostCreate(LoginRequiredMixin, CreateView):
         return reverse('route:post_detail', kwargs={'tag_name': self.kwargs['tag_name'], 'pk': self.object.id})
 
 
-class PostUpdate(UserPassesTestMixin, UpdateView):
-    model = Post
-    form_class = PostForm
-    template_name = 'station/create.html'
-
-    def form_valid(self, form):
-        post = form.save(commit=False)
-        post.author = self.request.user
-        post.route = Route.objects.get(name=self.kwargs['tag_name'])
-        return super().form_valid(form)
-
-    def get_success_url(self):
-        print(self.kwargs)
-        return reverse('route:post_detail', kwargs={'tag_name': self.kwargs['tag_name'], 'pk': self.kwargs['pk']})
-
-    def test_func(self):
-        return self.get_object().author == self.request.user
-
-
 class PostDeleteView(UserPassesTestMixin, DeleteView):
     model = Post
     template_name = 'route/postdelete.html'
@@ -91,8 +73,48 @@ class PostDeleteView(UserPassesTestMixin, DeleteView):
         return self.get_object().author == self.request.user
 
 
+class PostUpdate(UserPassesTestMixin, UpdateView):
+    model = Post
+    form_class = PostForm
+    template_name = 'station/create.html'
+
+    def form_valid(self, form):
+        post = form.save(commit=False)
+        post.author = self.request.user
+        post.route = Route.objects.get(name=self.kwargs['tag_name'])
+        return super().form_valid(form)
+
+    def get_success_url(self):
+        return reverse('route:post_detail', kwargs={'tag_name': self.kwargs['tag_name'], 'pk': self.kwargs['pk']})
+
+    def test_func(self):
+        return self.get_object().author == self.request.user
+
+
+class RouteUpdate(UserPassesTestMixin, UpdateView):
+    model = Route
+    form_class = RouteEditForm
+    template_name = 'station/create.html'
+
+    def get_object(self):
+        object = get_object_or_404(Route, name=self.kwargs['tag_name'])
+        return object
+
+    def form_valid(self, form):
+        route = form.save(commit=False)
+        route.cheif = self.request.user
+        return super().form_valid(form)
+
+    def get_success_url(self):
+        return reverse('route:list', kwargs={'tag_name': self.kwargs['tag_name']})
+
+    def test_func(self):
+        return self.get_object().cheif == self.request.user
+
+
 list = PostListView.as_view()
 post_detail = PostDetailView.as_view()
 post_create = PostCreate.as_view()
 post_edit = PostUpdate.as_view()
 post_delete = PostDeleteView.as_view()
+route_edit = RouteUpdate.as_view()

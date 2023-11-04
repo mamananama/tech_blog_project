@@ -3,6 +3,8 @@
     <a href="{{request.path}}{{post.pk}}/">
         <h3>{{post.title}}</h3>
     </a>
+    <p>aa{{post.created_at}}</p>
+    <p>aa{{post.updated_at}}</p>
     {% if post.created_at != post.updated_at %}
         <p>수정됨: {{post.updated_at}}</p>
     {% else %}
@@ -19,6 +21,11 @@
 </p>
 
 <div>
+    {% if user == route.cheif %}
+	<div>
+		<a href="{% url "route:route_edit" route.name %}">수정하기</a>
+	</div>
+	{% endif %}
     <p>첫 출발일 : {{route.created_at}}</p>
     <p><span>Route_{{route.name}}</span>의 개척자 : {{route.cheif.username}}</p>
     <p><span>Route_{{route.name}}</span>에 작성된 글 : {{posts.count}}개</p>

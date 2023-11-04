@@ -11,7 +11,7 @@
 			<p>작성자: <span style="font-weight: bold">{{post.author.username}}</span></p>
 		</div>
 		<div><p>작성일: {{post.created_at}}</p></div>
-		{% if post.created_at != post.updated_at %}
+		{% if post.created_at.strip != post.updated_at.strip %}
 		<div><p>수정일: {{post.updated_at}}</p></div>
 		{% endif %}
 		<div><p>조회수: {{post.count}}</p></div>
@@ -29,7 +29,7 @@
 	</div>
 	{% if user == post.author %}
 	<div>
-		<a href="{{request.path}}edit/">수정하기</a>
+		<a href="{{request.path}}post_edit/">수정하기</a>
 		<a href="{{request.path}}delete/">삭제하기</a>
 	</div>
 	{% endif %}
