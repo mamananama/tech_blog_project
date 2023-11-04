@@ -6,7 +6,6 @@ from django.db.models import Q
 from django.urls import reverse, reverse_lazy, is_valid_path
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 
-from .models import Post
 from route.models import Route
 from route.forms import RouteForm
 

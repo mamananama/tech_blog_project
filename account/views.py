@@ -5,7 +5,7 @@ from django.contrib.auth.decorators import login_required
 from django.views.generic import CreateView, DetailView
 from django.urls import reverse_lazy, reverse
 
-from station.models import Post
+from route.models import Post
 
 signup = CreateView.as_view(
     form_class=UserCreationForm,

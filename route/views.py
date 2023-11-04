@@ -5,17 +5,15 @@ from django.db.models import Q
 from django.urls import reverse_lazy, reverse
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 
-from station.models import Post
-from .models import Route
-from station.forms import PostForm
-from .forms import RouteForm, RouteEditForm
+from .models import Post, Route
+from .forms import PostForm, RouteForm, RouteEditForm
 
 
 class PostListView(ListView):
     model = Post
     template_name = 'route/route.html'
     context_object_name = 'posts'
-    ordering = '-pk'
+    ordering = '-updated_at'
 
     def get_queryset(self):
         queryset = super().get_queryset()
@@ -42,7 +40,7 @@ class PostDetailView(DetailView):
         pk = self.kwargs.get('pk')
         post = Post.objects.get(pk=pk)
         post.count += 1
-        post.save()
+        post.save(update_fields=('count',))
         return super().get_object(queryset)
 
 

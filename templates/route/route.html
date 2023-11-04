@@ -1,15 +1,14 @@
-{% for post in posts.all %}
+{% for post in posts %}
 <div>
     <a href="{{request.path}}{{post.pk}}/">
         <h3>{{post.title}}</h3>
     </a>
-    <p>aa{{post.created_at}}</p>
-    <p>aa{{post.updated_at}}</p>
     {% if post.created_at != post.updated_at %}
-        <p>수정됨: {{post.updated_at}}</p>
+    <div><p>수정시간 : {{post.updated_at|date:'Y-m-d H:i:s'}}</p></div>
     {% else %}
-        <p>작성됨: {{post.created_at}}</p>
-    {% endif %} 
+    <div><p>작성시간 : {{post.created_at|date:'Y-m-d H:i:s'}}</p></div>
+    {% endif %}
+
     <p>{{post.author.username}}</p>
 </div>    
 {% endfor %}

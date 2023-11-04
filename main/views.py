@@ -1,8 +1,7 @@
 from django.shortcuts import render
 from django.views.generic import ListView
 
-from station.models import Post
-from route.models import Route
+from route.models import Post, Route
 
 
 def index(request):

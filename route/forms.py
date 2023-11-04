@@ -1,5 +1,11 @@
 from django import forms
-from .models import Route
+from .models import Route, Post
+
+
+class PostForm(forms.ModelForm):
+    class Meta:
+        model = Post
+        fields = ('title', 'content', 'file', 'image')
 
 
 class RouteForm(forms.ModelForm):

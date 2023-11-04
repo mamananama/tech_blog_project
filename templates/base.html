@@ -3,12 +3,14 @@
 	<head>
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		{% load static %}
+		<link rel="stylesheet" href="{% static 'css/index.css' %}">
 		<title></title>
 	</head>
 
 	<body>
 		<header>
-			<h2>TRAIN__</h2>
+			<h2><a href={% url "main:index" %}>TRAIN__</a></h2>
 			<div></div>
 		</header>
 		{% block page_content %} {% endblock page_content %}
