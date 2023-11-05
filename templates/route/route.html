@@ -1,41 +1,69 @@
-{% for post in posts %}
-<div>
-    <a href="{{request.path}}{{post.pk}}/">
-        <h3>{{post.title}}</h3>
-    </a>
-    {% if post.created_at != post.updated_at %}
-    <div><p>수정시간 : {{post.updated_at|date:'Y-m-d H:i:s'}}</p></div>
-    {% else %}
-    <div><p>작성시간 : {{post.created_at|date:'Y-m-d H:i:s'}}</p></div>
-    {% endif %}
+{% extends "base.html" %}
 
-    <p>{{post.author.username}}</p>
-</div>    
-{% endfor %}
-<p>
-    <a href='{{request.path}}create/'>글 작성</a>
-</p>
-<p>
-    <a href={% url "station:list" %}>스테이션으로</a>
-</p>
-
-<div>
-    {% if user == route.cheif %}
-	<div>
-		<a href="{% url "route:route_edit" route.name %}">수정하기</a>
-	</div>
-	{% endif %}
-    <p>첫 출발일 : {{route.created_at}}</p>
-    <p><span>Route_{{route.name}}</span>의 개척자 : {{route.cheif.username}}</p>
-    <p><span>Route_{{route.name}}</span>에 작성된 글 : {{posts.count}}개</p>
-    <p><span>Route_{{route.name}}</span> 상태 : {{route.status}}</p>
-</div>
-
-<div>
-    <p>Route 참여자: {{route_user.count}}</p>
-    <div>
-    {% for user in route_user.all %}
-        <span><a href="#">{{user.author__username}}</a></span>
-    {% endfor %}
+{% block page_content %}
+<div class='main-container'>
+    <div class='main-route-container'>
+        {% if user == route.cheif %}
+    	<div>
+    		<a href="{% url "route:route_edit" route.name %}">수정하기</a>
+    	</div>
+    	{% endif %}
+            <div class='route-info'>
+                <p>첫 출발일 : {{route.created_at|date:'Y년 m월 d일'}}</p>
+                <p><span class='inline-route-name'>Route_{{route.name}}</span>의 개척자 : {{route.cheif.username}}</p>
+                <p><span class='inline-route-name'>Route_{{route.name}}</span>에 작성된 글 : {{posts.count}}개</p>
+                <p><span class='inline-route-name'>Route_{{route.name}}</span> 상태 : <span class='inline-status'>{{route.status}}</span></p>
+            </div>
+        <div class='main-card user-list'>
+            <div class=".main-card-title user-list-title"><p>Route 참여자: {{route_user.count}}</p></div>
+            <div class='main-card-item-container user-list-item-container'>
+            {% for user in route_user.all %}
+                <span class='inline-user-link'><a href="#">{{user.author__username}}</a></span>
+            {% endfor %}
+            </div>
+        </div>
+    </div>
+    
+    
+    <div class='main-route-postlist-container'>
+        <div class='main-route-postlist'>
+            {% for post in posts %}
+            <div class='item'>
+                <a href="{{request.path}}{{post.pk}}/">
+                    <h3>{{post.title}}</h3>
+                </a>
+                {% if post.created_at != post.updated_at %}
+                <div><p>수정시간 : {{post.updated_at|date:'Y-m-d H:i:s'}}</p></div>
+                {% else %}
+                <div><p>작성시간 : {{post.created_at|date:'Y-m-d H:i:s'}}</p></div>
+                {% endif %}
+            
+                <p>{{post.author.username}}</p>
+            </div>    
+            {% endfor %}
+        </div>
+        <p>
+            <a href='{{request.path}}create/'>글 작성</a>
+        </p>
+        <p>
+            <a href={% url "station:list" %}>스테이션으로</a>
+        </p>
+        
     </div>
 </div>
+{% endblock page_content %}
+
+{% block script %}
+<script>
+const $route_status = document.querySelectorAll(".inline-status");
+Array.prototype.forEach.call($route_status, (content) => {
+	if (content.innerText == "운행 전") {
+		content.style.color = "orange";
+	} else if (content.innerText == "운행 중") {
+		content.style.color = "green";
+	} else {
+		content.style.color = "black";
+	}
+});
+</script>
+{% endblock script %}

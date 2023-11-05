@@ -25,27 +25,51 @@
 
 		<div class='main-card-container'>
 			<div class='main-card'>
-				<div class='main-card-title route'><h2>Route</h2></div>
+				<div class='main-card-title route'><a href={% url "station:list" %}><h2>Route</h2></a></div>
 				<div class='main-card-item-container'>
-					{% for route in routes %}
-					<div class='main-card-item'>
-						<div class='main-card-item-inner'>
-							<a href={% url "route:list" route.name %}>{{route.name}}</a>
-						</div>
+					<div class='inner'>
+						{% for route in routes %}
+						<a href={% url "route:list" route.name %}>
+							<div class='main-card-item'>
+								<div class='main-card-item-inner'>
+									{{route.name}}
+								</div>
+							</div>
+						</a>
+						{% endfor %}
 					</div>
-					{% endfor %}
 				</div>
 			</div>
 			<div class='main-card'>
 				<div class='main-card-title hit'><h2>많이 본 글</h2></div>
-				<div>
-					<div>Project</div>
+				<div class='main-card-item-container'>
+					<div class='inner'>
+						{% for route in routes %}
+						<a href={% url "route:list" route.name %}>
+							<div class='main-card-item'>
+								<div class='main-card-item-inner'>
+									{{route.name}}
+								</div>
+							</div>
+						</a>
+						{% endfor %}
+					</div>
 				</div>
 			</div>
 			<div class='main-card'>
 				<div class='main-card-title recent'><h2>최근 작성 글</h2></div>
-				<div>
-					<div>Project</div>
+				<div class='main-card-item-container'>
+					<div class='inner'>
+						{% for route in routes %}
+						<a href={% url "route:list" route.name %}>
+							<div class='main-card-item'>
+								<div class='main-card-item-inner'>
+									{{route.name}}
+								</div>
+							</div>
+						</a>
+						{% endfor %}
+					</div>
 				</div>
 			</div>
 		</div>
