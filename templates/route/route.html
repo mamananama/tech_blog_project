@@ -1,49 +1,48 @@
 {% extends "route/route_base.html" %}
 {% block route_page_content %}
-    {% block menu_area_content %}
-        <p>
+    <div class='menu-area'>
+        <div class='btn'>
             <a href={% url "station:list" %}>스테이션으로</a>
-        </p>
-        <div class="btn" onClick="location.href ='{{request.path}}create/'" style="cursor:pointer;">
+        </div>
+        <div class="btn create" onClick="location.href ='{{request.path}}create/'" style="cursor:pointer;">
             <p>글 작성</p>
         </div>
-    {% endblock menu_area_content %}
+    </div>    
     <div class='main-route-postlist'>
         {% for post in posts %}
-        <div class='item-wraper'>
-            <div class='node-wraper'><div class='bar'></div><div class='node shadow-bottom'></div><div class='bar'></div></div>
+        <div class='item-wrapper'>
+            <div class='node-wrapper'><div class='bar'></div><div class='node shadow-bottom'></div><div class='bar'></div></div>
             <div class='item shadow-bottom-inset' onClick="location.href ='{{request.path}}{{post.pk}}/'" style="cursor:pointer;" >
-                    <div><p>제목: {{post.title}}</p></div>
+                <div class='item-info-wrapper'>
+                    <div class='info'><div class='title'>제목: </div><div class='content'>{{post.title}}</div></div>
                     {% if post.created_at != post.updated_at %}
-                    <div><p>수정시간 : {{post.updated_at|date:'Y-m-d H:i:s'}}</p></div>
+                    <div class='info'><div class='title'>수정시간 : </div><div class='content'>{{post.updated_at|date:'Y-m-d H:i:s'}}</div></div>
                     {% else %}
-                    <div><p>작성시간 : {{post.created_at|date:'Y-m-d H:i:s'}}</p></div>
+                    <div class='info'><div class='title'>작성시간 :</div> <div class='content'>{{post.created_at|date:'Y-m-d H:i:s'}}</div></div>
                     {% endif %}
-                    <div><p>작성자: {{post.author.username}}</p></div>
+                    <div class='info'><div class='title'>작성자: </div><div class='content'>{{post.author.username}}</div></div>
+                </div>
+                <div class='extensions'>
+                    <div><p>조회수: {{post.count}}</p></div>
+                    <div class='thumbnail-wrapper'>
+                        {% if post.image %}
+    					<div class='thumbnail'>
+    					    <img
+        						src="{{post.image.url}}"
+        						width="100px"/>
+    					</div>
+        				{% endif %}
+                    </div>
+                </div>
             </div> 
         </div>   
         {% endfor %}
-        <div class='item-wraper'>
-            <div class='node-wraper'><div class='bar'></div><div class='node shadow-bottom'></div><div class='bar' style='background-color: transparent'></div></div>
+        <div class='item-wrapper'>
+            <div class='node-wrapper'><div class='bar'></div><div class='node shadow-bottom'></div><div class='bar' style='background-color: transparent'></div></div>
             <div class='item first-post shadow-bottom-inset'>
                     <p>첫 출발일 : {{route.created_at|date:'Y년 m월 d일'}}</p>
-                    <p><span class='inline-route-name'>Route_{{route.name}}</span>의 개척자 : {{route.cheif.username}}</p>
+                    <p><span class='inline-route-name'>"{{route.name}}"</span>의 개척자 : {{route.cheif.username}}</p>
             </div> 
         </div>   
     </div>
 {% endblock route_page_content %}
-
-{% block script %}
-<script>
-const $route_status = document.querySelectorAll(".inline-status");
-Array.prototype.forEach.call($route_status, (content) => {
-	if (content.innerText == "운행 전") {
-		content.style.color = "orange";
-	} else if (content.innerText == "운행 중") {
-		content.style.color = "green";
-	} else {
-		content.style.color = "black";
-	}
-});
-</script>
-{% endblock script %}

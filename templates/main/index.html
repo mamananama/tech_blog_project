@@ -44,11 +44,20 @@
 				<div class='main-card-title hit shadow-bottom'><h2>많이 본 글</h2></div>
 				<div class='item-container'>
 					<div class='inner'>
-						{% for route in routes %}
-						<a href={% url "route:list" route.name %}>
+						{% for hit in hit_posts %}
+						<a href={% url "route:post_detail" hit.route.name hit.pk %}>
 							<div class='item shadow-bottom-inset'>
 								<div class='item-inner'>
-									{{route.name}}
+									<div class='item-info-wrapper'>
+										<div class='info'>
+											<div class='title'>제목: </div>
+											<div class='content'>[{{hit.route.name}}] {{hit.title}}</div>
+										</div>
+										<div class='info'>
+											<div class='title'>조회수: </div>
+											<div class='content'>{{hit.count}}</div>
+										</div>
+									</div>
 								</div>
 							</div>
 						</a>
@@ -60,11 +69,20 @@
 				<div class='main-card-title recent shadow-bottom'><h2>최근 작성 글</h2></div>
 				<div class='item-container'>
 					<div class='inner'>
-						{% for route in routes %}
-						<a href={% url "route:list" route.name %}>
+						{% for recent in recent_posts %}
+						<a href={% url "route:post_detail" recent.route.name recent.pk %}>
 							<div class='item shadow-bottom-inset'>
 								<div class='item-inner'>
-									{{route.name}}
+									<div class='item-info-wrapper'>
+										<div class='info'>
+											<div class='title'>제목: </div>
+											<div class='content'>[{{recent.route.name}}] {{recent.title}}</div>
+										</div>
+										<div class='info'>
+											<div class='title'>작성 시간: </div>
+											<div class='content'>{{recent.created_at|date:'Y-m-d  H:i:s'}}</div>
+										</div>
+									</div>
 								</div>
 							</div>
 						</a>

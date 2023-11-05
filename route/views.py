@@ -18,13 +18,13 @@ class PostListView(ListView):
     def get_queryset(self):
         queryset = super().get_queryset()
         queryset = queryset.filter(
-            Q(route__name__icontains=self.kwargs['tag_name']))
+            Q(route__name__iexact=self.kwargs['tag_name']))
         return queryset
 
     def get_context_data(self, **kwargs: Any):
         context = super().get_context_data(**kwargs)
         route_user = Post.objects.filter(
-            route__name=self.kwargs['tag_name']).values("author__pk", "author__username").distinct()
+            route__name__iexact=self.kwargs['tag_name']).values("author__pk", "author__username").distinct()
         route = Route.objects.get(name=self.kwargs['tag_name'])
         context['route_user'] = route_user
         context['route'] = route
@@ -42,6 +42,19 @@ class PostDetailView(DetailView):
         post.count += 1
         post.save(update_fields=('count',))
         return super().get_object(queryset)
+
+    def get_context_data(self, **kwargs: Any):
+        context = super().get_context_data(**kwargs)
+        route_user = Post.objects.filter(
+            route__name__iexact=self.kwargs['tag_name']).values("author__pk", "author__username").distinct()
+        route = Route.objects.get(name=self.kwargs['tag_name'])
+        posts = Post.objects.filter(
+            Q(route__name__iexact=self.kwargs['tag_name']))
+
+        context['route_user'] = route_user
+        context['route'] = route
+        context['posts'] = posts
+        return context
 
 
 class PostCreate(LoginRequiredMixin, CreateView):
