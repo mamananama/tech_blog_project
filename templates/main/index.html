@@ -24,14 +24,14 @@
 		</div>
 
 		<div class='main-card-container'>
-			<div class='main-card'>
-				<div class='main-card-title route'><a href={% url "station:list" %}><h2>Route</h2></a></div>
-				<div class='main-card-item-container'>
+			<div class='main-card shadow-bottom'>
+				<div class='main-card-title route shadow-bottom'><a href={% url "station:list" %}><h2>Route</h2></a></div>
+				<div class='item-container'>
 					<div class='inner'>
 						{% for route in routes %}
 						<a href={% url "route:list" route.name %}>
-							<div class='main-card-item'>
-								<div class='main-card-item-inner'>
+							<div class='item shadow-bottom-inset'>
+								<div class='item-inner'>
 									{{route.name}}
 								</div>
 							</div>
@@ -40,14 +40,14 @@
 					</div>
 				</div>
 			</div>
-			<div class='main-card'>
-				<div class='main-card-title hit'><h2>많이 본 글</h2></div>
-				<div class='main-card-item-container'>
+			<div class='main-card shadow-bottom'>
+				<div class='main-card-title hit shadow-bottom'><h2>많이 본 글</h2></div>
+				<div class='item-container'>
 					<div class='inner'>
 						{% for route in routes %}
 						<a href={% url "route:list" route.name %}>
-							<div class='main-card-item'>
-								<div class='main-card-item-inner'>
+							<div class='item shadow-bottom-inset'>
+								<div class='item-inner'>
 									{{route.name}}
 								</div>
 							</div>
@@ -56,14 +56,14 @@
 					</div>
 				</div>
 			</div>
-			<div class='main-card'>
-				<div class='main-card-title recent'><h2>최근 작성 글</h2></div>
-				<div class='main-card-item-container'>
+			<div class='main-card shadow-bottom'>
+				<div class='main-card-title recent shadow-bottom'><h2>최근 작성 글</h2></div>
+				<div class='item-container'>
 					<div class='inner'>
 						{% for route in routes %}
 						<a href={% url "route:list" route.name %}>
-							<div class='main-card-item'>
-								<div class='main-card-item-inner'>
+							<div class='item shadow-bottom-inset'>
+								<div class='item-inner'>
 									{{route.name}}
 								</div>
 							</div>

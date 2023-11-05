@@ -1,38 +1,37 @@
-{% comment %} 임시 {% endcomment %}
-<head>
-	{% load static %} <link rel="stylesheet" href={% static "css/index.css" %} />
-</head>
-
-<h2>Route: {{post.route.name}}</h2>
-<div class="main-card post">
-	<div class="post-info">
-		<div><h3>{{post.title}}</h3></div>
-		<div>
-			<p>작성자: <span style="font-weight: bold">{{post.author.username}}</span></p>
-		</div>
-		<div><p>작성일: {{post.created_at|date:'Y-m-d H:i:s'}}</p></div>
-		{% if post.created_at != post.updated_at %}
-		<div><p>수정일: {{post.updated_at|date:'Y-m-d H:i:s'}}</p></div>
-		{% endif %}
-		<div><p>조회수: {{post.count}}</p></div>
-		<p></p>
-	</div>
-	<div>
-		<div>
-			{% if post.image %}
-			<a href="{{post.image.url}}" target="_blank">
-				<img src="{{post.image.url}}" width="400px" />
-			</a>
-			{% endif %}
-		</div>
-		<div>{{post.content}}</div>
-	</div>
-	{% if user == post.author %}
-	<div>
-		<a href="{{request.path}}post_edit/">수정하기</a>
-		<a href="{{request.path}}delete/">삭제하기</a>
-	</div>
-	{% endif %}
-
-	<div><a href="{{request.path}}..">뒤로가기</a></div>
+{% extends "route/route_base.html" %} {% block route_page_content %} {% block menu_area_content %}
+{% if user == post.author %}
+<div>
+	<div class="btn"><a href="{{request.path}}post_edit/">수정하기</a></div>
+	<div class="btn"><a href="{{request.path}}post_delete/">삭제하기</a></div>
 </div>
+{% endif %}
+<div><a href="{{request.path}}..">뒤로가기</a></div>
+{% endblock menu_area_content %}
+<h2>Route: {{post.route.name}}</h2>
+<div class="main-route-postlist">
+	<div class="main-card post">
+		<div class="post-info">
+			<div><h3>{{post.title}}</h3></div>
+			<div>
+				<p>작성자: <span style="font-weight: bold">{{post.author.username}}</span></p>
+			</div>
+			<div><p>작성일: {{post.created_at|date:'Y-m-d H:i:s'}}</p></div>
+			{% if post.created_at != post.updated_at %}
+			<div><p>수정일: {{post.updated_at|date:'Y-m-d H:i:s'}}</p></div>
+			{% endif %}
+			<div><p>조회수: {{post.count}}</p></div>
+			<p></p>
+		</div>
+		<div>
+			<div>
+				{% if post.image %}
+				<a href="{{post.image.url}}" target="_blank">
+					<img src="{{post.image.url}}" width="400px" />
+				</a>
+				{% endif %}
+			</div>
+			<div>{{post.content}}</div>
+		</div>
+	</div>
+</div>
+{% endblock route_page_content %}

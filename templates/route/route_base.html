@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+{% block page_content %}
+<h2>Route: {{route.name}}</h2>
+<div class='main-container'>
+    <div class='main-route-container'>
+        {% if user == route.cheif %}
+    	<div>
+    		<a href="{% url "route:route_edit" route.name %}">수정하기</a>
+    	</div>
+    	{% endif %}
+            <div class='route-info'>
+                <p>첫 출발일 : {{route.created_at|date:'Y년 m월 d일'}}</p>
+                <p><span class='inline-route-name'>Route_{{route.name}}</span>의 개척자 : {{route.cheif.username}}</p>
+                <p><span class='inline-route-name'>Route_{{route.name}}</span>에 작성된 글 : {{posts.count}}개</p>
+                <p><span class='inline-route-name'>Route_{{route.name}}</span> 상태 : <span class='inline-status'>{{route.status}}</span></p>
+            </div>
+        <div class='main-card user-list shadow-bottom-inset'>
+            <div class=".main-card-title user-list-title shadow-bottom"><p>Route 참여자: {{route_user.count}}</p></div>
+            <div class='main-card-item-container user-list-item-container'>
+            {% for user in route_user.all %}
+                <span class='inline-user-link shadow-bottom'><a href="#">{{user.author__username}}</a></span>
+            {% endfor %}
+            </div>
+        </div>
+    </div>
+    
+    <div class='main-route-postlist-container'>
+    {% block route_page_content %}
+        <div class='menu-area'>    
+        {% block menu_area_content %}
+        {% endblock menu_area_content %}
+        </div>
+    {% endblock route_page_content %}
+    </div>
+</div>
+{% endblock page_content %}
+
