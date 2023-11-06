@@ -19,6 +19,10 @@ class PostListView(ListView):
         queryset = super().get_queryset()
         queryset = queryset.filter(
             Q(route__name__iexact=self.kwargs['tag_name']))
+        q = self.request.GET.get('keyword', '')
+        if q:
+            queryset = queryset.filter(
+                Q(title__icontains=q) | Q(content__icontains=q)).distinct()
         return queryset
 
     def get_context_data(self, **kwargs: Any):

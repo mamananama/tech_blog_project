@@ -132,4 +132,4 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'media'
 
-X_FRAME_OPTIONS = "SAMEORIGIN"  # embed 태그를 위해 사용
+LOGIN_URL = '/account/login/'

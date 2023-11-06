@@ -1,13 +1,26 @@
 {% extends "route/route_base.html" %} {% block route_page_content %}
 <div class="menu-area">
-	<div class="btn" onclick='location.href="{% url "station:list" %}"' style="cursor: pointer">
-		스테이션으로
+	<div class="search">
+		<form action="{{requset.path}}" method="get">
+			<input
+				class="shadow-bottom-inset"
+				type="search"
+				placeholder="검색어를 입력하세요"
+				name="keyword"
+				value="{{request.GET.q}}" />
+			<button type="submit" class="btn">검색</button>
+		</form>
 	</div>
-	<div
-		class="btn create"
-		onClick="location.href ='{{request.path}}create/'"
-		style="cursor: pointer">
-		<p>글 작성</p>
+	<div class="sub-menu">
+		<div class="btn" onclick='location.href="{% url "station:list" %}"' style="cursor: pointer">
+			스테이션으로
+		</div>
+		<div
+			class="btn create"
+			onClick="location.href ='{{request.path}}create/'"
+			style="cursor: pointer">
+			<p>글 작성</p>
+		</div>
 	</div>
 </div>
 <div class="main-route-postlist">

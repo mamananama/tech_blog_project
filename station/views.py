@@ -6,7 +6,7 @@ from django.db.models import Q
 from django.urls import reverse, reverse_lazy, is_valid_path
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 
-from route.models import Route
+from route.models import Route, Post
 from route.forms import RouteForm
 
 
@@ -14,6 +14,17 @@ class RouteList(ListView):
     model = Route
     template_name = 'station/station.html'
     context_object_name = 'routes'
+
+    def get_context_data(self, **kwargs: Any):
+        context = super().get_context_data(**kwargs)
+        post_number = {}
+        for route in context['routes']:
+            print(str(route))
+            post_number[str(route)] = Post.objects.filter(
+                route__name__exact=route).distinct().count()
+        print(post_number)
+        context['post_number'] = post_number
+        return context
 
 
 class RouteCreate(LoginRequiredMixin, CreateView):

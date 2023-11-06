@@ -1,24 +1,26 @@
 {% extends "route/route_base.html" %} {% block route_page_content %}
 <div class="menu-area">
-	<div class="btn" onclick="location.href='{{request.path}}..'" style="cursor: pointer">
-		Route로 돌아가기
-	</div>
-	{% if user == post.author %}
-	<div>
-		<div
-			class="btn edit"
-			onclick="location.href='{{request.path}}post_edit/'"
-			style="cursor: pointer">
-			수정하기
+	<div class="sub-menu">
+		<div class="btn" onclick="location.href='{{request.path}}..'" style="cursor: pointer">
+			Route로 돌아가기
 		</div>
-		<div
-			class="btn delete"
-			onclick='location.href="{{request.path}}post_delete/"'
-			style="cursor: pointer">
-			삭제하기
+		{% if user == post.author %}
+		<div>
+			<div
+				class="btn edit"
+				onclick="location.href='{{request.path}}post_edit/'"
+				style="cursor: pointer">
+				수정하기
+			</div>
+			<div
+				class="btn delete"
+				onclick='location.href="{{request.path}}post_delete/"'
+				style="cursor: pointer">
+				삭제하기
+			</div>
 		</div>
+		{% endif %}
 	</div>
-	{% endif %}
 </div>
 
 <div class="main-route-postlist">

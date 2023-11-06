@@ -8,14 +8,16 @@
     <div class="profile shadow-bottom">
         <div class='main-table-container'>
             <div class="menu-area">
-                <div class="btn" onclick='location.href="{% url "main:index" %}"' style="cursor: pointer">
-                    메인 홈으로
-                </div>
-                <div
-                    class="btn create"
-                    onClick="location.href ='{% url "station:create" %}'"
-                    style="cursor: pointer">
-                    Route 생성
+                <div class='sub-menu'>
+                    <div class="btn" onclick='location.href="{% url "main:index" %}"' style="cursor: pointer">
+                        메인 홈으로
+                    </div>
+                    <div
+                        class="btn create"
+                        onClick="location.href ='{% url "station:create" %}'"
+                        style="cursor: pointer">
+                        Route 생성
+                    </div>
                 </div>
             </div>
             <div class='main-table shadow-bottom-inset'>
@@ -39,7 +41,8 @@
                                 {{r.status}}
                             </div>
                             <div class='col-4'>
-                                {{r.status}}
+                                {% load template_filters %}
+                                {{post_number|get_item:r.name}}
                             </div>
                         </a>
                     </div>
