@@ -1,41 +1,54 @@
 {% extends "base.html" %}
 {% block page_content %}
-<div class='main-table-container'>
-    <div class='main-table'>
-        <div class='thead'>
-            <div class='col-1'>Route</div>
-            <div class='col-2'>최근 작성 시간</div>
-            <div class='col-3'>상태</div>
-            <div class='col-4'>포스트 수</div>
-        </div>
-        <div class='tbody'>
-            {% for r in routes %}
-            <div class='titem'>
-                <a href={% url "route:list" r.name %}>
-                    <div class='col-1'>
-                        {{ r.name }}
-                    </div>
-                    <div class='col-2'>
-                        {{ r.created_at }}
-                    </div>
-                    <div class='col-3'>
-                        {{r.status}}
-                    </div>
-                    <div class='col-4'>
-                        {{r.status}}
-                    </div>
-                </a>
+<div class="page-title">
+	<h2>STATION</h2>
+</div>
+
+<div class="main-container">
+    <div class="profile shadow-bottom">
+        <div class='main-table-container'>
+            <div class="menu-area">
+                <div class="btn" onclick='location.href="{% url "main:index" %}"' style="cursor: pointer">
+                    메인 홈으로
+                </div>
+                <div
+                    class="btn create"
+                    onClick="location.href ='{% url "station:create" %}'"
+                    style="cursor: pointer">
+                    Route 생성
+                </div>
             </div>
-            {% endfor %}
+            <div class='main-table shadow-bottom-inset'>
+                <div class='thead'>
+                    <div class='col-1'>Route</div>
+                    <div class='col-2'>최근 작성 시간</div>
+                    <div class='col-3'>상태</div>
+                    <div class='col-4'>포스트 수</div>
+                </div>
+                <div class='tbody'>
+                    {% for r in routes %}
+                    <div class='titem'>
+                        <a href={% url "route:list" r.name %}>
+                            <div class='col-1'>
+                                {{ r.name }}
+                            </div>
+                            <div class='col-2'>
+                                {{ r.created_at }}
+                            </div>
+                            <div class='col-3'>
+                                {{r.status}}
+                            </div>
+                            <div class='col-4'>
+                                {{r.status}}
+                            </div>
+                        </a>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
         </div>
     </div>
 </div>
-<p>
-    <a href={% url "station:create" %}>Route 생성</a>
-</p>
-<p>
-    <a href={% url "main:index" %}>홈으로</a>
-</p>
 {% endblock page_content %}
 
 {% block script %}

@@ -1,1 +1,33 @@
-welcome
+{% extends "base.html" %} {% block page_content %}
+<div class="page-title"><h2>Welcome</h2></div>
+<div class="main-container">
+	<div class="profile shadow-bottom welcome">
+		<div class="draw-container">
+			<div class="draw-content-wrapper">
+				<div class="circle"></div>
+				<div class="square">PASS</div>
+			</div>
+		</div>
+		<div class="welcome-message shadow-bottom-inset">
+			<p>환영합니다!</p>
+			<p>회원가입이 정상적으로 처리되었습니다!</p>
+		</div>
+		<div class="welcome-menu">
+			<div
+				class="welcome-menu-btn shadow-bottom"
+				onclick='location.href="{% url "account:login" %}"'
+				style="cursor: pointer"
+				;>
+				로그인하기
+			</div>
+			<div
+				class="welcome-menu-btn shadow-bottom to-main"
+				onclick='location.href="{% url "main:index" %}"'
+				style="cursor: pointer"
+				;>
+				메인 홈으로
+			</div>
+		</div>
+	</div>
+</div>
+{% endblock page_content %}

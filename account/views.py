@@ -12,7 +12,7 @@ from route.models import Post
 signup = CreateView.as_view(
     form_class=UserCreationForm,
     template_name='account/signup.html',
-    success_url=reverse_lazy('account:login'),
+    success_url=reverse_lazy('account:welcome'),
 )
 
 login = LoginView.as_view(
@@ -49,3 +49,7 @@ class ProfileDetailView(DetailView):
 
 
 profile = ProfileDetailView.as_view()
+
+
+def welcome(request):
+    return render(request, 'account/welcome.html')

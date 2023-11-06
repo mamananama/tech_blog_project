@@ -14,7 +14,16 @@
 		<header>
 			<nav class='header-content-container'>
 				<h2><a href={% url "main:index" %}>TRAIN__</a></h2>
-				<div></div>
+				<div class='account-menu'>
+					{% if user.is_authenticated %}
+					<div onClick='location.href="{% url "account:profile" user.username %}"' style='cursor: pointer;'>안녕하세요, {{user.username}}</div>
+						<div onclick='location.href="{% url "account:logout" %}"' style='cursor: pointer;'>Log out</div>
+					{% else %}
+						<div onclick='location.href="{% url "account:login" %}"' style='cursor: pointer;'>Login</div>
+						<div onclick='location.href="{% url "account:signup" %}"' style='cursor: pointer;'>Sign up</div>					
+					
+					{% endif %}
+				</div>
 			</nav>
 		</header>
 		{% block page_content %} {% endblock page_content %}

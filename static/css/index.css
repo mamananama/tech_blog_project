@@ -42,7 +42,7 @@ a:visited{
 }
 
 body{
-    font-family: SBAggroB;
+    font-family: Pretendard-Regular;
 }
 
 .btn{
@@ -90,7 +90,7 @@ body{
 
 .title{
     font-size: 48px;
-    font-weight: bolder;
+    font-weight: bolder;    
 }
 
 .shadow-bottom{
@@ -103,8 +103,10 @@ body{
 
 .main-card-container{
     display: flex;
+    flex: 1;
     flex-direction: row;
     justify-content: center;
+    height: 600px;
     gap: 35px;
 }
 
@@ -130,19 +132,11 @@ body{
     justify-content: center;
     color: white;
     font-style: italic;
-    font-size: 1.5em;
+    font-size: 24px;
+    font-family: SBAggroB;
 
     border-radius: 22px 22px 0 0;    
     text-shadow: 0px 4px 4px 0px rgba(0,0,0,0.25);
-}
-
-.main-card-title a{
-    width: 100%;
-    height: 100%;
-
-    display: flex;
-    justify-content: center;
-    align-items: center;
 }
 
 .route{
@@ -182,18 +176,20 @@ body{
 .item{
     flex-shrink: 0;
     width: 350px;
-    height: 60px;
+    height: 64px;
     background-color: white;
     border-radius: 8px;
     padding: 10px;
     margin-bottom: 16px;
+    overflow-y: hidden;
+    overflow-x: hidden;
     text-shadow: 0px 4px 4px 0px rgba(0,0,0,0.25);
 }
 
 .item:hover{
     animation-name: item-ani;
     animation-duration: 0.3s;
-    animation-duration: ease;
+    animation-timing-function: ease;
     animation-fill-mode: forwards;
 }
 
@@ -216,11 +212,25 @@ body{
     margin-right: auto;
     margin-bottom: 20px;
     margin-left: auto;
+    display: flex;
+    font-family: SBAggroB;
 }
 
+.page-title h1{
+    display: flex;
+    font-size: 64px;
+    font-style: italic;
+    align-items: baseline;
+    gap: 12px;
+}
+
+
 .page-title h2{
+    display: flex;
     font-size: 48px;
     font-style: italic;
+    align-items: baseline;
+    gap: 12px;
 }
 
 .main-container{
@@ -237,6 +247,7 @@ body{
     justify-content: center;
     align-items: center;
     gap: 16px;
+    font-family: Pretendard-Regular;
 }
 
 .main-route-container{
@@ -272,9 +283,7 @@ body{
     height: 300px;
     border-radius: 22px;
     background-color: white;
-    overflow-y: overlay;
     display: flex;
-    overflow-y: hidden;
     margin-bottom: 30px;
 }
 
@@ -287,6 +296,8 @@ body{
     align-items: center;
     flex-shrink: 0;
     color: white;
+
+    border-radius: 22px 22px 0 0;
 }
 
 .user-list-item-container{
@@ -314,7 +325,7 @@ body{
 .inline-user-link:hover{
     animation-name: user-link-scale;
     animation-duration: 0.3s;
-    animation-duration: ease;
+    animation-timing-function: ease;
     animation-fill-mode: forwards;
 }
 
@@ -549,14 +560,21 @@ body{
 }
 
 .main-table-container{
+    width: 1000px;
+    height: 600px;
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
+    font-weight: bold;
 }
 
 .main-table{
-    width: 900px;
-    height: 600px;
+    width: 1000px;
+    height: 500px;
+    padding: 20px;
+    border-radius: 16px;
+    background-color: white;
     display: flex;
     flex-direction: column;
 }
@@ -580,15 +598,17 @@ body{
 
 .main-table .thead, .main-table .tbody{
     padding: 10px;
+    height: 400px;
     display: flex;
     flex-direction: row;
     text-align: center;
-    justify-content: center;
+    justify-content: flex-start;
     align-items: center;
+    overflow-y: overlay;
 }
 
 .main-table .thead{
-    background-color: #EEEEEE;
+    background-color: #cccccc;
     height: 48px;
 }
 
@@ -616,7 +636,7 @@ body{
 .main-table .tbody .titem:hover{    
     animation-name: table-tr-ani;
     animation-duration: 0.3s;
-    animation-duration: ease;
+    animation-timing-function: ease;
     animation-fill-mode: forwards;
 }
 
@@ -633,6 +653,54 @@ body{
     width: 90%;
 }
 
+/* profile */
+.profile{
+    background-color: #e3e3e3;
+    width: 1300px;
+    height: 600px;
+    border-radius: 22px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+
+}
+
+.profile-card-bg{
+    background-color: #eeeeee;
+}
+
+.profile-card-title{
+    height: 48px;    
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    font-size: 26px;
+}
+
+.profile-item-container{
+    width: 300px;
+    height: 252px;
+}
+
+.profile-item-container .inner{
+    overflow-y: overlay;
+}
+
+.profile-item-container .item-info-wrapper{
+    width: 280px;
+}
+
+.profile-item{
+    width: 270px;
+}
+
+.profile-item .item-info-wrapper{
+    width: 250px;
+}
+
+
 /* base.html */
 header{
     height: 54px;
@@ -642,6 +710,7 @@ header{
     justify-content: center;
     background-color: black;
     color: white;
+    font-family: SBAggroB;
     font-style: italic;
 }
 
@@ -651,6 +720,14 @@ header{
     display: flex;
     justify-content: space-between;
 }
+
+.account-menu{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 24px;
+}
+
 
 footer{
     height: 46px;
@@ -669,7 +746,106 @@ footer nav{
 }
 
 
+/* welcome */
+.welcome
+{
+    padding: 80px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+}
 
+.welcome-message{
+    width: 500px;
+    height: 100px;
+    border-radius: 22px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 50px;
+    background-color: white;
+}
+
+.welcome-message p{
+    font-size: 24px;
+}
+
+.welcome-menu{
+    display: flex;
+    flex-direction: row;
+    gap: 32px;
+}
+
+.welcome-menu-btn{
+    width: 150px;
+    height: 50px;
+    border-radius: 16px;
+    color: white;
+    background-color: #2555B4;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.welcome-menu-btn:active{
+    animation-name: item-ani;
+    animation-duration: 0.1s;
+    animation-timing-function: ease;
+    animation-direction: reverse;
+    animation-fill-mode: forwards;
+}
+
+
+.to-main{
+    color: black;
+    background-color: #EAA215;
+}
+
+/* draw */
+.draw-container{
+    width: 100px;
+    height: 100px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 60px;
+}
+
+.draw-content-wrapper{
+    width: 96px;
+    height: 96px;
+
+    transform: rotate(-27deg);
+    flex-shrink: 0;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.circle{
+    width: 90px;
+    height: 90px;
+    border-radius: 95px;
+    border: 10px solid #b61111;
+    position: relative;
+}
+
+.square{
+    width: 96px;
+    height: 30px;
+    font-size: 23px;
+    background-color: #e3e3e3;
+    color: #b61111;
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    top: 33px;
+    
+}
 
 
 

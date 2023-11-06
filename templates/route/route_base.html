@@ -1,50 +1,69 @@
-{% extends "base.html" %}
-{% block page_content %}
-<div class='page-title'><h2>Route: {{route.name}}</h2></div>
-<div class='main-container'>
-    <div class='main-route-container shadow-bottom'>
-        <div class="menu-area">
-	        {% if user == route.cheif %}
-        	<div>
-		        <div class="btn edit"><a href="{% url "route:route_edit" route.name %}">수정하기</a></div>
-	        </div>
-	        {% endif %}
-        </div>
-        <div class='route-info shadow-bottom-inset'>
-            <div>첫 출발일 : {{route.created_at|date:'Y년 m월 d일'}}</div>
-            <div><span class='inline-route-name'>"{{route.name}}"</span>의 개척자 : {{route.cheif.username}}</div>
-            <div><span class='inline-route-name'>"{{route.name}}"</span>에 작성된 글 : {{posts.count}}개</div>
-            <div><span class='inline-route-name'>"{{route.name}}"</span>의 상태 : <span class='inline-status'>{{route.status}}</span></div>
-        </div>
-        <div class='main-card user-list shadow-bottom-inset'>
-            <div class=".main-card-title user-list-title shadow-bottom"><p><span class='inline-route-name'>"{{route.name}}"</span> 참여자: {{route_user.count}}</p></div>
-            <div class='main-card-item-container user-list-item-container'>
-            {% for user in route_user.all %}
-                <span class='inline-user-link shadow-bottom' onClick='location.href="{% url "account:profile" user.author__username %}"'
-			style="cursor: pointer">{{user.author__username}}</span>
-            {% endfor %}
-            </div>
-        </div>
-    </div>
-    
-    <div class='main-route-postlist-container shadow-bottom'>
-    {% block route_page_content %}
-    {% endblock route_page_content %}
-    </div>
-</div>
-{% endblock page_content %}
+{% extends "base.html" %} {% block page_content %}
+<div class="page-title"><h2>Route: {{route.name}}</h2></div>
+<div class="main-container">
+	<div class="main-route-container shadow-bottom">
+		<div class="menu-area">
+			{% if user == route.cheif %}
+			<div>
+				<div
+					class="btn edit"
+					onClick='location.href="{% url "route:route_edit" route.name %}"'
+					style="cursor: pointer">
+					수정하기
+				</div>
+			</div>
+			{% endif %}
+		</div>
+		<div class="route-info shadow-bottom-inset">
+			<div>첫 출발일 : {{route.created_at|date:'Y년 m월 d일'}}</div>
+			<div>
+				<span class="inline-route-name">"{{route.name}}"</span>의 개척자 :
+				{{route.cheif.username}}
+			</div>
+			<div>
+				<span class="inline-route-name">"{{route.name}}"</span>에 작성된 글 :
+				{{posts.count}}개
+			</div>
+			<div>
+				<span class="inline-route-name">"{{route.name}}"</span>의 상태 :
+				<span class="inline-status">{{route.status}}</span>
+			</div>
+		</div>
+		<div class="main-card user-list shadow-bottom-inset">
+			<div class=".main-card-title user-list-title shadow-bottom">
+				<p>
+					<span class="inline-route-name">"{{route.name}}"</span> 참여자:
+					{{route_user.count}}
+				</p>
+			</div>
+			<div class="main-card-item-container user-list-item-container">
+				{% for user in route_user.all %}
+				<span
+					class="inline-user-link shadow-bottom"
+					onClick='location.href="{% url "account:profile" user.author__username %}"'
+					style="cursor: pointer"
+					>{{user.author__username}}</span
+				>
+				{% endfor %}
+			</div>
+		</div>
+	</div>
 
-{% block script %}
+	<div class="main-route-postlist-container shadow-bottom">
+		{% block route_page_content %} {% endblock route_page_content %}
+	</div>
+</div>
+{% endblock page_content %} {% block script %}
 <script>
-const $route_status = document.querySelectorAll(".inline-status");
-Array.prototype.forEach.call($route_status, (content) => {
-	if (content.innerText == "운행 전") {
-		content.style.color = "orange";
-	} else if (content.innerText == "운행 중") {
-		content.style.color = "green";
-	} else {
-		content.style.color = "black";
-	}
-});
+	const $route_status = document.querySelectorAll(".inline-status");
+	Array.prototype.forEach.call($route_status, (content) => {
+		if (content.innerText == "운행 전") {
+			content.style.color = "orange";
+		} else if (content.innerText == "운행 중") {
+			content.style.color = "green";
+		} else {
+			content.style.color = "black";
+		}
+	});
 </script>
 {% endblock script %}
