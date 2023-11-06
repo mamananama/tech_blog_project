@@ -1,8 +1,8 @@
 {% extends "base.html" %}
 {% block page_content %}
-<h2>Route: {{route.name}}</h2>
+<div class='page-title'><h2>Route: {{route.name}}</h2></div>
 <div class='main-container'>
-    <div class='main-route-container'>
+    <div class='main-route-container shadow-bottom'>
         <div class="menu-area">
 	        {% if user == route.cheif %}
         	<div>
@@ -20,13 +20,14 @@
             <div class=".main-card-title user-list-title shadow-bottom"><p><span class='inline-route-name'>"{{route.name}}"</span> 참여자: {{route_user.count}}</p></div>
             <div class='main-card-item-container user-list-item-container'>
             {% for user in route_user.all %}
-                <span class='inline-user-link shadow-bottom'><a href="#">{{user.author__username}}</a></span>
+                <span class='inline-user-link shadow-bottom' onClick='location.href="{% url "account:profile" user.author__username %}"'
+			style="cursor: pointer">{{user.author__username}}</span>
             {% endfor %}
             </div>
         </div>
     </div>
     
-    <div class='main-route-postlist-container'>
+    <div class='main-route-postlist-container shadow-bottom'>
     {% block route_page_content %}
     {% endblock route_page_content %}
     </div>

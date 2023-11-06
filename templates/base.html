@@ -5,16 +5,22 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		{% load static %}
 		<link rel="stylesheet" href="{% static 'css/index.css' %}">
-		<title></title>
+
+		<link rel="icon" type="image/png" sizes="32x32" href="{% static 'icon/favicon-32X32.png' %}">
+		<title>TRAIN__</title>
 	</head>
 
 	<body>
 		<header>
-			<h2><a href={% url "main:index" %}>TRAIN__</a></h2>
-			<div></div>
+			<nav class='header-content-container'>
+				<h2><a href={% url "main:index" %}>TRAIN__</a></h2>
+				<div></div>
+			</nav>
 		</header>
 		{% block page_content %} {% endblock page_content %}
-		<footer></footer>
+		<footer>
+			<nav><div></div><p>ⓒ 2023. mamananama.</p><div></div></nav>
+		</footer>
 	</body>
 	{% block script %}{% endblock script %}
 </html>

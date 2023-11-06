@@ -1,0 +1,23 @@
+{% extends "base.html" %} {% block page_content %}
+<p>{{profile.username}}</p>
+
+<div class="main-card user-list shadow-bottom-inset">
+	<div class="main-card-title user-list-title">참여한 Route</div>
+	<div class="main-card-item-container user-list-item-container">
+		{% for route in routes %}
+		<span
+			class="inline-user-link shadow-bottom"
+			onClick='location.href="{% url "route:list" route.route__name %}"'
+			style="cursor: pointer"
+			>{{route.route__name}}</span
+		>
+		{% endfor %}
+	</div>
+</div>
+<div>
+	<div>최근 작성 글</div>
+	{% for recent in recents %}
+	<p>{{recent.title}}</p>
+	{% endfor %}
+</div>
+{% endblock page_content %}

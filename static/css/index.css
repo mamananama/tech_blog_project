@@ -20,6 +20,15 @@ h1, h2, h3, h4, h5, body, div, p, span, table, a{
     flex-shrink: 0;
 }
 
+html, body{
+    height: 100%;
+}
+
+body{
+    display: flex;
+    flex-direction: column;
+}
+
 a{
     text-decoration-line: none;
 }
@@ -200,13 +209,30 @@ body{
     }
 }
 
-.main-container{
+/* route/ station/ */
+.page-title{
     width: 1300px;
-    height: 880px;
+    margin-top: 40px;
+    margin-right: auto;
+    margin-bottom: 20px;
+    margin-left: auto;
+}
+
+.page-title h2{
+    font-size: 48px;
+    font-style: italic;
+}
+
+.main-container{
+    flex: 1;
+    width: 1300px;
+    height: 700px;
     box-sizing: border-box;
     margin-left: auto;
     margin-right: auto;
     display: flex;
+    
+    margin-bottom: 40px;
     flex-direction: row;
     justify-content: center;
     align-items: center;
@@ -376,7 +402,6 @@ body{
     height: 38px;
     top: -12px;
 }
-
 
 .item-wrapper .node-wrapper .node{
     width: 48px;
@@ -607,6 +632,45 @@ body{
 .main-route-postlist .item{
     width: 90%;
 }
+
+/* base.html */
+header{
+    height: 54px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    background-color: black;
+    color: white;
+    font-style: italic;
+}
+
+.header-content-container{
+    width: 1300px;
+    padding: 10px;
+    display: flex;
+    justify-content: space-between;
+}
+
+footer{
+    height: 46px;
+    flex-shrink: 0;
+    display: flex;
+
+    background-color: #666666;
+    color: white;
+    font-family: Pretendard-Regular;
+    justify-content: center;
+    align-items: center;
+}
+
+footer nav{
+    width: 1300px;
+}
+
+
+
+
 
 
 /* scroll bar effect */
