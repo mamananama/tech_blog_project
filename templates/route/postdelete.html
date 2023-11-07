@@ -1,6 +1,18 @@
-<form method="POST">
-	{% csrf_token %}
-	<p>{{post.title}} 글을 삭제합니다.</p>
-	<input type="button" onClick="location.href='{{request.path}}..'" value="취소" />
-	<input type="submit" value="네" />
-</form>
+{% extends "base.html" %} {% block page_content %}
+<div class="page-title">
+	<h2>{{page_title}}</h2>
+</div>
+<div class="main-container">
+	<div class="profile shadow-bottom create-view delete-view">
+		<div class="menu-area">
+			<div class="sub-menu"></div>
+		</div>
+		<form method="POST">
+			{% csrf_token %}
+			<p>{{post.title}} 글을 삭제합니다.</p>
+			<input type="button" onClick="location.href='{{request.path}}..'" value="취소" />
+			<input type="submit" value="네" />
+		</form>
+	</div>
+</div>
+{% endblock page_content %}

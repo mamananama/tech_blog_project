@@ -19,10 +19,8 @@ class RouteList(ListView):
         context = super().get_context_data(**kwargs)
         post_number = {}
         for route in context['routes']:
-            print(str(route))
             post_number[str(route)] = Post.objects.filter(
-                route__name__exact=route).distinct().count()
-        print(post_number)
+                route__name__exact=str(route)).distinct().count()
         context['post_number'] = post_number
         return context
 
@@ -39,6 +37,12 @@ class RouteCreate(LoginRequiredMixin, CreateView):
 
     def get_success_url(self):
         return reverse('station:list')
+
+    def get_context_data(self, **kwargs: Any):
+        context = super().get_context_data(**kwargs)
+        page_title = 'CREATE ROUTE'
+        context['page_title'] = page_title
+        return context
 
 
 list = RouteList.as_view()

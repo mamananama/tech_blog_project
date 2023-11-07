@@ -1,6 +1,33 @@
 {% extends "base.html" %} {% block page_content %}
-<form method="POST" enctype="multipart/form-data">
-	{% csrf_token %} {{form.as_p}}
-	<input type="submit" />
-</form>
+<div class="page-title">
+	<h2>{{page_title}}</h2>
+</div>
+<div class="main-container">
+	<div class="profile shadow-bottom form-post">
+		<div class="menu-area">
+			<div class="sub-menu">
+				<div
+					class="btn"
+					onclick='location.href="{{request.path}}.."'
+					style="cursor: pointer">
+					취소
+				</div>
+			</div>
+		</div>
+		<div class="form-wrapper">
+			<form method="POST" enctype="multipart/form-data">
+				{% csrf_token %} {% for field in form %}
+				<div class="field-wrapper">
+					<div class="input-field">
+						<label>{{field.label}}</label>
+						<div class="input-area"><div class="field-detail">{{field}}</div></div>
+					</div>
+					<div class="help-text">{{field.help_text}}</div>
+				</div>
+				{% endfor %}
+				<input type="submit" />
+			</form>
+		</div>
+	</div>
+</div>
 {% endblock page_content %}

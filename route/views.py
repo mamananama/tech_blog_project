@@ -75,6 +75,12 @@ class PostCreate(LoginRequiredMixin, CreateView):
     def get_success_url(self):
         return reverse('route:post_detail', kwargs={'tag_name': self.kwargs['tag_name'], 'pk': self.object.id})
 
+    def get_context_data(self, **kwargs: Any):
+        context = super().get_context_data(**kwargs)
+        page_title = f'CREATE POST @ROUTE: {self.kwargs['tag_name']}'
+        context['page_title'] = page_title
+        return context
+
 
 class PostDeleteView(UserPassesTestMixin, DeleteView):
     model = Post
@@ -86,6 +92,13 @@ class PostDeleteView(UserPassesTestMixin, DeleteView):
 
     def test_func(self):
         return self.get_object().author == self.request.user
+
+    def get_context_data(self, **kwargs: Any):
+        context = super().get_context_data(**kwargs)
+        page_title = f'DELETE POST @ROUTE: {
+            self.kwargs['tag_name']}'
+        context['page_title'] = page_title
+        return context
 
 
 class PostUpdate(UserPassesTestMixin, UpdateView):
@@ -104,6 +117,13 @@ class PostUpdate(UserPassesTestMixin, UpdateView):
 
     def test_func(self):
         return self.get_object().author == self.request.user
+
+    def get_context_data(self, **kwargs: Any):
+        context = super().get_context_data(**kwargs)
+        page_title = f'EDIT POST @ROUTE: {
+            self.kwargs['tag_name']}'
+        context['page_title'] = page_title
+        return context
 
 
 class RouteUpdate(UserPassesTestMixin, UpdateView):
@@ -125,6 +145,13 @@ class RouteUpdate(UserPassesTestMixin, UpdateView):
 
     def test_func(self):
         return self.get_object().cheif == self.request.user
+
+    def get_context_data(self, **kwargs: Any):
+        context = super().get_context_data(**kwargs)
+        page_title = f'EDIT STATUS of ROUTE: {
+            self.kwargs['tag_name']}'
+        context['page_title'] = page_title
+        return context
 
 
 list = PostListView.as_view()

@@ -62,8 +62,8 @@ Array.prototype.forEach.call($route_status, (content) => {
 		content.style.color = "orange";
 	} else if (content.innerText == "운행 중") {
 		content.style.color = "green";
-	} else {
-		content.style.color = "black";
+	} else if(content.innerText == "운행 종료"){
+		content.style.color = "#b61111";
 	}
 });
 </script>

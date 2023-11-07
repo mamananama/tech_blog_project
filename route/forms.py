@@ -3,6 +3,27 @@ from .models import Route, Post
 
 
 class PostForm(forms.ModelForm):
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+
+        self.fields['title'].widget.attrs = {
+            'class': 'post-form-title  shadow-bottom-inset'
+        }
+        self.fields['title'].label = '제목'
+        self.fields['content'].widget.attrs = {
+            'class': 'post-form-content shadow-bottom-inset'
+        }
+        self.fields['content'].label = '내용'
+        self.fields['file'].widget.attrs = {
+            'class': 'post-form-file'
+        }
+        self.fields['file'].label = '첨부파일'
+        self.fields['image'].widget.attrs = {
+            'class': 'post-form-image'
+        }
+        self.fields['image'].label = '이미지'
+
     class Meta:
         model = Post
         fields = ('title', 'content', 'file', 'image')

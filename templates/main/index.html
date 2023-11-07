@@ -1,5 +1,6 @@
 {% extends "base.html" %}
 {% block page_content %}
+{% load template_filters %}
 <div class="page-title">
 	<h1>TRAIN__</h1>
 	<div>
@@ -17,7 +18,27 @@
 					<a href={% url "route:list" route.name %}>
 						<div class='item shadow-bottom-inset'>
 							<div class='item-inner'>
-								{{route.name}}
+								<div class='item-info-wrapper'>
+									<div class='info'>
+										<div class='info-sub'>
+											<div class='content'>{{route.name|truncatechars:10}}</div>
+										</div>
+										<div class='info-sub'>
+											<div class='title'>개척자: </div>
+											<div class='content'>{{route.cheif.username|truncatechars:10}}</div>
+										</div>
+									</div>
+									<div class='info'>
+										<div class='info-sub'>
+											<div class='title'>상태: </div>
+											<div class='content inline-status'>{{route_status|get_item:route.name}}</div>
+										</div>
+										<div class='info-sub'>
+											<div class='title'>게시물 수: </div>
+											<div class='content'>{{post_number|get_item:route.name}}</div>
+										</div>
+									</div>
+								</div>
 							</div>
 						</div>
 					</a>
@@ -73,4 +94,16 @@
 		</div>
 	</div>
 </div>
+<script>
+	const $route_status = document.querySelectorAll(".inline-status");
+	Array.prototype.forEach.call($route_status, (content) => {
+		if (content.innerText == "운행 전") {
+			content.style.color = "orange";
+		} else if (content.innerText == "운행 중") {
+			content.style.color = "green";
+		} else if (content.innerText == "운행 종료"){
+			content.style.color = "#b61111";
+		}
+	});
+</script>
 {% endblock page_content %}

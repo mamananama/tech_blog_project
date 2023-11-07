@@ -9,20 +9,32 @@ from django.urls import reverse_lazy, reverse
 
 from route.models import Post
 
-signup = CreateView.as_view(
-    form_class=UserCreationForm,
-    template_name='account/signup.html',
-    success_url=reverse_lazy('account:welcome'),
-)
 
-login = LoginView.as_view(
-    template_name='account/login.html',
-    next_page='main:index',
-)
+class SignupCreateView(CreateView):
+    form_class = UserCreationForm
+    template_name = 'account/signup.html'
+    success_url = reverse_lazy('account:welcome')
 
-logout = LogoutView.as_view(
-    next_page='main:index',
-)
+    def get_context_data(self, **kwargs: Any):
+        context = super().get_context_data(**kwargs)
+        page_title = f'SIGN UP'
+        context['page_title'] = page_title
+        return context
+
+
+class TrainLoginView(LoginView):
+    template_name = 'account/login.html'
+    next_page = 'main:index'
+
+    def get_context_data(self, **kwargs: Any):
+        context = super().get_context_data(**kwargs)
+        page_title = f'LOGIN'
+        context['page_title'] = page_title
+        return context
+
+
+class TrainLogoutView(LogoutView):
+    next_page = 'main:index'
 
 
 class ProfileDetailView(DetailView):
@@ -48,6 +60,9 @@ class ProfileDetailView(DetailView):
         return context
 
 
+signup = SignupCreateView.as_view()
+login = TrainLoginView.as_view()
+logout = TrainLogoutView.as_view()
 profile = ProfileDetailView.as_view()
 
 
