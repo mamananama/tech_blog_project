@@ -39,6 +39,12 @@
 				<span>수정일: {{post.updated_at|date:'Y-m-d H:i:s'}}</span>
 				{% endif %}
 			</div>
+			<div>
+				{% if post.file %}
+				<span class="download"
+					><a href="{{post.file.url}}" download="">첨부파일 다운로드</a></span
+				>{% endif %}
+			</div>
 		</div>
 		<div class="content-container shadow-bottom-inset">
 			<div class="content">

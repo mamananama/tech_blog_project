@@ -26,9 +26,6 @@ class MainListView(ListView):
                 route__name__exact=str(route)).distinct().count()
             route_status[str(route)] = route.status
 
-        print(post_number)
-        print(route_status)
-
         context['routes'] = routes
         context['hit_posts'] = hit_posts
         context['recent_posts'] = recent_posts

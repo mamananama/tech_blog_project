@@ -1207,6 +1207,15 @@ form input{
     justify-content: center;
 }
 
+.download{
+    display: inline-block;
+    color: white;
+    background-color: #2555B4;
+    text-align: center;
+    width: 200px;
+}
+
+
 /* scroll bar effect */
 
 /* ===== Scrollbar CSS ===== */
