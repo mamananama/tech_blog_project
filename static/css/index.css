@@ -289,7 +289,7 @@ body, input, button{
     gap: 10px;
     justify-content: flex-start;
     align-items: flex-start;
-    font-size: 18px;
+    font-size: 14px;
     background-color: white ;
     border-radius: 22px;
 }
