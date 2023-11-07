@@ -21,9 +21,6 @@ class SignupCreateView(CreateView):
         context['page_title'] = page_title
         return context
 
-    def get(self, request, *args, **kwargs):
-        pass
-
 
 class TrainLoginView(LoginView):
     template_name = 'account/login.html'
