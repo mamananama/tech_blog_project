@@ -7,3 +7,5 @@ urlpatterns = [
     path('', views.list, name='list'),
     path('create/', views.create, name='create'),
 ]
+
+handler404 = 'train.views.errorpage404'

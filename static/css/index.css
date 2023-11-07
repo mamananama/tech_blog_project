@@ -903,6 +903,7 @@ footer nav{
     align-items: center;
     margin-bottom: 50px;
     background-color: white;
+    font-family: SBAggroB;
 }
 
 .welcome-message p{
@@ -924,6 +925,7 @@ footer nav{
     display: flex;
     justify-content: center;
     align-items: center;
+    font-family: SBAggroB;
 }
 
 .welcome-menu-btn:active{
@@ -1175,30 +1177,34 @@ form input{
     border: none;
 }
 
-.delete-view form{
+.delete-form p{
+    font-size: 36px;
+    font-family: SBAggroB;
+}
+
+.delete-menu{
     display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
+    flex-direction: row;
     gap: 10px;
 }
 
-.delete-view p{
+.delete-menu div{
     font-size: 22px;
-    font-weight: bold;
+    width: 200px;
+    height: 30px;
+    border-radius: 4px;
 }
 
-.delete-view input{
-    width: 100px;
-    height: 30px;
-    font-size: 18px;
-    font-weight: bold;
-    background-color: #5179c9;
-    color: white;
-    border: none;
-}
-.delete-view form > input:last-child{
+
+.delete-menu input{
     background-color: #b61111;
+    font-size: 22px;
+    font-weight: bold;
+    color: white;
+    width: 200px;
+    height: 30px;
+    outline: none;
+    border: none;
 }
 
 #account-form{

@@ -9,3 +9,5 @@ urlpatterns = [
     path('profile/<str:user_name>/', views.profile, name='profile'),
     path('welcome/', views.welcome, name='welcome'),
 ]
+
+handler404 = 'train.views.errorpage404'
