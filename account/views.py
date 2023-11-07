@@ -7,7 +7,7 @@ from django.views.generic import CreateView, DetailView
 from django.contrib.auth.models import User
 from django.urls import reverse_lazy, reverse
 
-from route.models import Post
+from route.models import Post, Comment
 
 
 class SignupCreateView(CreateView):
@@ -54,9 +54,11 @@ class ProfileDetailView(DetailView):
             author__username__exact=self.kwargs['user_name']).values('route__name').distinct()
         recents = Post.objects.filter(
             author__username__exact=self.kwargs['user_name']).order_by('-created_at')[:10]
-
+        recent_comment = Comment.objects.filter(
+            author__username__exact=self.kwargs['user_name'])[:10]
         context['routes'] = routes
         context['recents'] = recents
+        context['recent_comment'] = recent_comment
         return context
 
 

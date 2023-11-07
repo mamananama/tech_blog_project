@@ -54,6 +54,27 @@
 				{% endif %} {{post.content}}
 			</div>
 		</div>
+		<div class="comment">
+			<h3>댓글</h3>
+			<div class="comment-view-area shadow-bottom-inset">
+				{% for comment in comments.all %}
+				<div class="comment-item-wrapper">
+					<p>{{ comment.author }}</p>
+					<p>{{ comment.message }}</p>
+					<p>{{ comment.created_at }}</p>
+				</div>
+				{% endfor %}
+			</div>
+			<h3>댓글 작성</h3>
+			<form action="{{request.path}}comment/" method="post">
+				{% csrf_token %}
+				<div class="comment-post">
+					<p>{{request.user.username}}</p>
+					{{ comment_form.as_p }}
+					<input type="submit" value="작성" />
+				</div>
+			</form>
+		</div>
 	</div>
 </div>
 {% endblock route_page_content %}

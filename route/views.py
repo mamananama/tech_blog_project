@@ -2,11 +2,11 @@ from typing import Any
 from django.shortcuts import get_object_or_404, render
 from django.views.generic import ListView, CreateView, DeleteView, DetailView, UpdateView
 from django.db.models import Q
-from django.urls import reverse_lazy, reverse
+from django.urls import is_valid_path, reverse_lazy, reverse
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 
-from .models import Post, Route
-from .forms import PostForm, RouteForm, RouteEditForm
+from .models import Post, Route, Comment
+from .forms import PostForm, RouteEditForm, CommentForm
 
 
 class PostListView(ListView):
@@ -54,10 +54,13 @@ class PostDetailView(DetailView):
         route = Route.objects.get(name=self.kwargs['tag_name'])
         posts = Post.objects.filter(
             Q(route__name__iexact=self.kwargs['tag_name']))
+        comments = Comment.objects.filter(post__pk__iexact=self.kwargs['pk'])
 
         context['route_user'] = route_user
         context['route'] = route
         context['posts'] = posts
+        context['comment_form'] = CommentForm()
+        context['comments'] = comments
         return context
 
 
@@ -154,9 +157,26 @@ class RouteUpdate(UserPassesTestMixin, UpdateView):
         return context
 
 
+class CommentCreateView(LoginRequiredMixin, CreateView):
+    model = Comment
+    form_class = CommentForm
+
+    def form_valid(self, form):
+        comment = form.save(commit=False)
+        comment.author = self.request.user
+        comment.post = Post.objects.get(pk=self.kwargs['pk'])
+        print(self.kwargs)
+        return super().form_valid(form)
+
+    def get_success_url(self):
+
+        return reverse('route:post_detail', kwargs={'pk': self.kwargs['pk'], 'tag_name': self.kwargs['tag_name']})
+
+
 list = PostListView.as_view()
 post_detail = PostDetailView.as_view()
 post_create = PostCreate.as_view()
 post_edit = PostUpdate.as_view()
 post_delete = PostDeleteView.as_view()
 route_edit = RouteUpdate.as_view()
+post_comment = CommentCreateView.as_view()

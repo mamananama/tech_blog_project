@@ -51,19 +51,6 @@ class Comment(models.Model):
     )
     message = models.TextField()
     created_at = models.DateTimeField(auto_now_add=True)
-    parent = models.ForeignKey(
-        'self', null=True, blank=True, on_delete=models.CASCADE)
 
     def __str__(self):
         return self.message
-
-    @property
-    def children(self):
-        return Comment.objects.filter(parent=self).reverse()
-
-    @property
-    def is_parent(self):
-        if self.parent is None:
-            return True
-        else:
-            return False

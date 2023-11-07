@@ -37,13 +37,45 @@
 										<div class="title">제목:</div>
 										<div class="content">
 											[{{recent.route.name}}]
-											{{recent.title|truncatechars:10}}
+											{{recent.title|truncatechars:20}}
 										</div>
 									</div>
 									<div class="info">
 										<div class="title">작성 시간:</div>
 										<div class="content">
 											{{recent.created_at|date:'Y-m-d H:i:s'}}
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						{% endfor %}
+					</div>
+				</div>
+			</div>
+			<div class="main-card user-list shadow-bottom profile-card-bg">
+				<div class="main-card-title shadow-bottom profile-card-title recent-comment">
+					최근 작성 댓글
+				</div>
+				<div class="item-container profile-item-container">
+					<div class="inner">
+						{% for comment in recent_comment %}
+						<div
+							class="item shadow-bottom-inset profile-item"
+							onclick='location.href="{% url "route:post_detail" comment.post.route.name comment.post.pk %}"'
+							style="cursor: pointer">
+							<div class="item-inner">
+								<div class="item-info-wrapper">
+									<div class="info">
+										<div class="content">
+											[{{comment.post.route.name}}]에서:
+											{{comment.message|truncatechars:20}}
+										</div>
+									</div>
+									<div class="info">
+										<div class="title">작성 시간:</div>
+										<div class="content">
+											{{comment.created_at|date:'Y-m-d H:i:s'}}
 										</div>
 									</div>
 								</div>

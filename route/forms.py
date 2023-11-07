@@ -1,5 +1,6 @@
+from tkinter import Widget
 from django import forms
-from .models import Route, Post
+from .models import Route, Post, Comment
 
 
 class PostForm(forms.ModelForm):
@@ -44,4 +45,18 @@ class RouteEditForm(forms.ModelForm):
         fields = ('status',)
         widgets = {
             'status': forms.RadioSelect(),
+        }
+
+
+class CommentForm(forms.ModelForm):
+
+    class Meta:
+        model = Comment
+        fields = ("message",)
+
+        widgets = {
+            'message': forms.TextInput(),
+        }
+        labels = {
+            'message': '',
         }
