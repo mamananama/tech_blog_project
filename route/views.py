@@ -1,3 +1,4 @@
+from gc import get_objects
 from typing import Any
 from django.shortcuts import get_object_or_404, render
 from django.views.generic import ListView, CreateView, DeleteView, DetailView, UpdateView
@@ -169,8 +170,21 @@ class CommentCreateView(LoginRequiredMixin, CreateView):
         return super().form_valid(form)
 
     def get_success_url(self):
-
         return reverse('route:post_detail', kwargs={'pk': self.kwargs['pk'], 'tag_name': self.kwargs['tag_name']})
+
+
+class CommentDeleteView(UserPassesTestMixin, DeleteView):
+    model = Comment
+    context_object_name = 'comment'
+
+    def get_success_url(self):
+        return reverse('route:post_detail', kwargs={'pk': self.kwargs['post_pk'], 'tag_name': self.kwargs['tag_name']})
+
+    def test_func(self):
+        return self.get_object().author == self.request.user
+
+    def get(self, request, *args, **kwargs):
+        return self.post(request, *args, **kwargs)
 
 
 list = PostListView.as_view()
@@ -180,3 +194,4 @@ post_edit = PostUpdate.as_view()
 post_delete = PostDeleteView.as_view()
 route_edit = RouteUpdate.as_view()
 post_comment = CommentCreateView.as_view()
+post_comment_delete = CommentDeleteView.as_view()

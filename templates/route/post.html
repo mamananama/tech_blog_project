@@ -57,7 +57,7 @@
 						style="cursor: pointer"
 						title="클릭해서 새 창에서 열기" />
 				</div>
-				{% endif %} {{post.content}}
+				{% endif %} {{post.content|linebreaksbr}}
 			</div>
 		</div>
 		<div class="comment">
@@ -68,6 +68,18 @@
 					<p>{{ comment.author }}</p>
 					<p>{{ comment.message }}</p>
 					<p>{{ comment.created_at }}</p>
+					<div class='delete-menu'>
+						{% if user == comment.author %}
+						<form action='{{request.path}}comment_delete/{{comment.pk}}/' method="POST">
+							{% csrf_token %}
+							<input
+								type='submit'
+								value='❌'
+								/></a>
+						</form>
+						{% endif %}
+					</div>
+					</div>
 				</div>
 				{% endfor %}
 			</div>

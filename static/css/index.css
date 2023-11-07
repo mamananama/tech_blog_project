@@ -776,6 +776,14 @@ body, input, button{
     box-shadow: none;
 }
 
+.delete-menu form input{
+    width: 20px;
+    height: 20px;
+    padding: 0;
+    font-size: 15px;
+    background-color: transparent;
+}
+
 /* profile */
 .profile{
     background-color: #eeeeee;
@@ -1100,7 +1108,13 @@ form input{
     justify-items: center;
 }
 
-.field-detail label[for=image-clear_id]{
+.field-detail br{
+    display: inline-block;
+    content: "";
+    padding: 0 2px;
+    }
+
+.field-detail label[for=image-clear_id], .field-detail label[for=file-clear_id]{
     font-weight: 100;
     width: 100px;
 }
@@ -1130,7 +1144,8 @@ form input{
     /* width: 300px;
     overflow-x: hidden; */
     visibility: visible;
-    content: '현재 이미지';
+    width: 65px;
+    content: '보기';
     background-color: #5179c9;
     color: white;
     padding: 3px;
