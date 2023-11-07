@@ -36,8 +36,8 @@
 									<div class="info">
 										<div class="title">제목:</div>
 										<div class="content">
-											[{{recent.route.name}}]
-											{{recent.title|truncatechars:20}}
+											[{{recent.route.name|truncatechars:3}}]
+											{{recent.title|truncatechars:8}}
 										</div>
 									</div>
 									<div class="info">
@@ -68,8 +68,8 @@
 								<div class="item-info-wrapper">
 									<div class="info">
 										<div class="content">
-											[{{comment.post.route.name}}]에서:
-											{{comment.message|truncatechars:20}}
+											[{{comment.post.route.name|truncatechars:3}}]에서:
+											{{comment.message|truncatechars:12}}
 										</div>
 									</div>
 									<div class="info">
