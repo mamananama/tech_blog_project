@@ -214,7 +214,53 @@ https://www.figma.com/file/iftq8MW7Rn4L9PdRcfnDd4/tech_blog?type=design&node-id=
 <br>
 <br>
 
-## 프로젝트 기능 설명
+## 프로젝트 페이지 설명
+### '/'
+![image](https://github.com/mamananama/tech_blog_project/assets/114140050/8bf22b66-5feb-4aab-9a6f-17d6651bd533)
+메인페이지 입니다.<br>
+* Route 탭: 현재 생성된 Route의 목록을 확인할 수 있습니다. Route의 상태와 개척자, 작성된 게시물의 수를 확인할 수 있습니다.
+* 많이 본 글 탭: Post model에 속한 글 중(전체 게시물 중) 조회수가 가장 높은 상위 10개 게시물을 확인 할 수 있습니다.
+* 최근 작성 글 탭: Post model에 속한 글 중(전체 게시물 중) created_at(생성 시간)이 가장 최근인 상위 10개 게시물을 확인 할 수 있습니다.
+<br>
+
+### '/staion/'
+![image](https://github.com/mamananama/tech_blog_project/assets/114140050/714cfa75-24e5-49d4-ae8e-5b49b5c43b7e)
+station 페이지 입니다.<br>
+* 생성된 Route의 목록을 확인할 수 있습니다.
+* 제목, 생성시간, 상태, 작성된 포스트 수의 간단한 Route의 정보를 확인할 수 있습니다.
+* 로그인 한 유저는 'Route 생성' 버튼을 통해 Route를 생성 할 수 있습니다.
+
+### '/station/create/'
+![image](https://github.com/mamananama/tech_blog_project/assets/114140050/5a50901a-0790-4365-a729-6d2e16edb7ec)
+route 생성 페이지 입니다.<br>
+* 생성할 Route의 제목과 상태를 입력할 수 있습니다.
+* 작성된 제목과 상태는 Route 모델에 저장됩니다.
+
+### '/station/<str:tag_name>
+![image](https://github.com/mamananama/tech_blog_project/assets/114140050/4767e861-652f-475d-8867-bd21266ba2d5)
+'tag_name'으로 등록된 Route의 게시글 목록을 확인할 수 있는 페이지 입니다.
+
+* Route 정보에서 Route의 개설일, 개척자, 작성된 글의 수, 상태를 확인할 수 있습니다.
+
+  > ![image](https://github.com/mamananama/tech_blog_project/assets/114140050/5d0d0c41-6c32-42aa-91d1-ae9a2d666b08)
+* 참여자 탭에서 해당 Route에 글을 작성한 User의 아이디를 확인 할 수 있습니다.
+
+  > ![image](https://github.com/mamananama/tech_blog_project/assets/114140050/9cb84053-ee80-4c34-b6b0-ce48ce0e78a8)
+* 글 목록이 노선도처러 보여지도록 디자인을 꾸몄습니다.
+
+  > ![image](https://github.com/mamananama/tech_blog_project/assets/114140050/64c0759e-0686-46df-b4af-25ac146daa52)
+* 사진을 포함한 게시물인 경우, 글 목록에서 작은 썸네일로 미리 볼 수 있도록 했습니다.
+
+  > ![image](https://github.com/mamananama/tech_blog_project/assets/114140050/a0497c0f-92fd-44a8-84b7-e3a9069682e1)
+* 검색 기능을 통해 게시물을 검색하여 찾을 수 있습니다.
+
+  > ![image](https://github.com/mamananama/tech_blog_project/assets/114140050/83254862-4711-4943-a4c3-ca4863ad5dbe)
+
+
+
+
+
+## 프로젝트 기능 시연
 ### 회원가입 및 로그인 기능
 https://github.com/mamananama/tech_blog_project/assets/114140050/c76b53dd-09c8-4cd0-9324-865536b9e39b
 
@@ -251,6 +297,13 @@ https://github.com/mamananama/tech_blog_project/assets/114140050/33d40c02-7553-4
 ### 다른 유저의 Profile 열람 기능
 https://github.com/mamananama/tech_blog_project/assets/114140050/f7cd3c5b-86ee-4490-b1f3-6a0b530d7c62
 
+### 잘못된 URL 접근을 막는 기능(404, 500 Error)
+https://github.com/mamananama/tech_blog_project/assets/114140050/f68ec886-c872-4d2b-8724-326f2f80bbef
+
+### 전체 기능 둘러보기
+
+
+https://github.com/mamananama/tech_blog_project/assets/114140050/2a254ebc-7389-439a-b990-c42fb79dd653
 
 
 
