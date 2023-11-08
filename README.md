@@ -65,7 +65,7 @@ Python Django를 사용하여 모놀리식 블로그를 만드는 프로젝트 �
   ![Static Badge](https://img.shields.io/badge/css3-%231572B6?style=flat-square&logo=css3&logoColor=white)
 
 * DB<br>
-  ![Static Badge](https://img.shields.io/badge/postgresql-%234169E1?style=flat-square&logo=postgresql&logoColor=white)
+  https://img.shields.io/badge/sqlite-%23003B57?style=flat&logo=sqlite&logoColor=white
 <br>
 <br>
 
