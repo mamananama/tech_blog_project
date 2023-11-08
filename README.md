@@ -73,12 +73,12 @@ Python Django를 사용하여 모놀리식 블로그를 만드는 프로젝트 �
 ### URL 설계
 - `/` 메인 페이지
 - `/admin/` 관리자 페이지
-- `/accounts/`
-    - `/accounts/welcome/` 회원 가입 완료 웰컴 페이지
-    - `/accounts/signup/` 회원 가입
-    - `/accounts/login/` 로그인
-    - `/accounts/logout/` 로그아웃
-    - `/accounts/profile/<str:user_name>/` `user_name`의 프로필
+- `/account/`
+    - `/account/welcome/` 회원 가입 완료 웰컴 페이지
+    - `/account/signup/` 회원 가입
+    - `/account/login/` 로그인
+    - `/account/logout/` 로그아웃
+    - `/account/profile/<str:user_name>/` `user_name`의 프로필
 - `/station/` 태그별로 정리 된 글 목록
     - `/station/create/` 새 route 생성
 - `/station/route/<str:tag_name>/` `tag_name`으로 등록된 글 목록
