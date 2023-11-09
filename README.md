@@ -84,22 +84,23 @@ Python Django를 사용하여 모놀리식 블로그를 만드는 프로젝트 �
 - `/station/route/<str:tag_name>/` `tag_name`으로 등록된 글 목록
     - `/station/route/<str:tag_name>/route_edit/` `tag_name` 의 상태 수정
     - `/station/route/<str:tag_name>/create/` 해당 `tag_name`으로 설정된 새 글 생성
-    - `/station/route/<str:tag_name>/<int:pk>/` `tag_name`으로 등록된 `pk` 번의 글
-        - `/station/route/<str:tag_name>/<int:pk>/post_delete/` `tag_name`으로 등록된 `pk` 번의 글 삭제
-        - `/station/route/<str:tag_name>/<int:pk>/post_edit/` `tag_name`으로 등록된 `pk` 번의 글 수정
-        - `/station/route/<str:tag_name>/<int:pk>/comment/` `tag_name`으로 등록된 `pk` 번의 글에 댓글 생성
-        - `/station/route/<str:tag_name>/<int:post_pk>/comment_delete/<int:pk>` `tag_name`으로 등록된 `post_pk` 번의 글의 `pk`  댓글 삭제
+    - `/station/route/<str:tag_name>/<int:post_pk>/` `tag_name`으로 등록된 `pk` 번의 글
+        - `/station/route/<str:tag_name>/<int:post_pk>/post_delete/` `tag_name`으로 등록된 `post_pk` 번의 글 삭제
+        - `/station/route/<str:tag_name>/<int:post_pk>/post_edit/` `tag_name`으로 등록된 `post_pk` 번의 글 수정
+        - `/station/route/<str:tag_name>/<int:post_pk>/comment/` `tag_name`으로 등록된 `post_pk` 번의 글에 댓글 생성
+        - `/station/route/<str:tag_name>/<int:post_pk>/comment_delete/<int:comment_pk>` `tag_name`으로 등록된 `post_pk` 번의 글의 `comment_pk`  댓글 삭제
 <br>
 <br>
 
 ### ERD 설계
 ![image](https://github.com/mamananama/tech_blog_project/assets/114140050/6bc562d5-90bf-49f9-b0f0-3cee265a42fb)
-
-> * User-Post : 일대다 연결
-> * User-Route : 일대다 연결
-> * User-Comment : 일대다 연결
-> * Post-Comment : 일대다 연결
-> * Route-Post : 일대다 연결
+> * 모델의 연결
+>   * User-Post : 일대다 연결
+>   * User-Route : 일대다 연결
+>   * User-Comment : 일대다 연결
+>   * Post-Comment : 일대다 연결
+>   * Route-Post : 일대다 연결
+  
 <br>
 <br>
 
@@ -229,16 +230,19 @@ station 페이지 입니다.<br>
 * 생성된 Route의 목록을 확인할 수 있습니다.
 * 제목, 생성시간, 상태, 작성된 포스트 수의 간단한 Route의 정보를 확인할 수 있습니다.
 * 로그인 한 유저는 'Route 생성' 버튼을 통해 Route를 생성 할 수 있습니다.
+<br>
 
 ### '/station/create/'
 ![image](https://github.com/mamananama/tech_blog_project/assets/114140050/5a50901a-0790-4365-a729-6d2e16edb7ec)
 route 생성 페이지 입니다.<br>
 * 생성할 Route의 제목과 상태를 입력할 수 있습니다.
 * 작성된 제목과 상태는 Route 모델에 저장됩니다.
+<br>
 
 ### '/station/<str:tag_name>
 ![image](https://github.com/mamananama/tech_blog_project/assets/114140050/4767e861-652f-475d-8867-bd21266ba2d5)
-'tag_name'으로 등록된 Route의 게시글 목록을 확인할 수 있는 페이지 입니다.
+'tag_name'으로 등록된 Route의 게시글 목록을 확인할 수 있는 페이지 입니다.  
+'tag_name'은 'Route'모델의 primary key 입니다.
 
 * Route 정보에서 Route의 개설일, 개척자, 작성된 글의 수, 상태를 확인할 수 있습니다.
 
@@ -255,6 +259,29 @@ route 생성 페이지 입니다.<br>
 * 검색 기능을 통해 게시물을 검색하여 찾을 수 있습니다.
 
   > ![image](https://github.com/mamananama/tech_blog_project/assets/114140050/83254862-4711-4943-a4c3-ca4863ad5dbe)
+<br>
+
+### '/station/<str:tag_name>/<int:post_pk>/'
+![image](https://github.com/mamananama/tech_blog_project/assets/114140050/591f7728-f1de-4d0f-9c86-eff707212baa)
+'tag_name'으로 등록된 Route의 게시물 중 'post_pk'번의 게시물의 디테일 페이지 입니다.  
+'post_pk'는 'Post' 모델의 primary key 입니다.
+
+* Route 페이지로 돌아가는 기능과, 현재 로그인한 계정이 작성자 본인과 일치하면 해당 게시물을 수정, 삭제할 수 있는 메뉴를 조작하는 부분입니다.
+
+  > ![image](https://github.com/mamananama/tech_blog_project/assets/114140050/0961f94f-e37e-4445-ba50-cbb48c63c3bc)
+* post의 제목과 작성자, 조회수, 작성일을 확인할 수 있는 부분입니다.
+
+  > ![image](https://github.com/mamananama/tech_blog_project/assets/114140050/e97492f3-ebfd-4fb1-91e0-0f10f383bb3b)
+  > * 수정되어 게시물 내용이 변경되면 수정일이 추가로 표시됩니다.
+  >   ![image](https://github.com/mamananama/tech_blog_project/assets/114140050/fb934351-9ef9-4fe4-a5e8-3b637bbe1b5e)
+* 댓글을 작성할 수 있습니다.
+
+  > ![image](https://github.com/mamananama/tech_blog_project/assets/114140050/c5912ba5-665f-4dc6-9ab8-ac14c8ed5761)
+  > * 댓글 현재 로그인한 계정이 댓글 작성자 본인과 일치하면 해당 댓글을 삭제할 수 있는 아이콘이 나타납니다.
+  >  ![image](https://github.com/mamananama/tech_blog_project/assets/114140050/9d498a8d-2774-4b57-8132-f5d4819844d0)
+
+
+
 
 
 
