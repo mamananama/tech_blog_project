@@ -328,12 +328,65 @@ https://github.com/mamananama/tech_blog_project/assets/114140050/f7cd3c5b-86ee-4
 https://github.com/mamananama/tech_blog_project/assets/114140050/f68ec886-c872-4d2b-8724-326f2f80bbef
 
 ### 전체 기능 둘러보기
-
-
 https://github.com/mamananama/tech_blog_project/assets/114140050/2a254ebc-7389-439a-b990-c42fb79dd653
+<br>
+<br>
+---
+## 트러블슈팅
+### 하나의 View에서 복수의 모델 쿼리 또는 한 모델에서 복수의 쿼리 셋을 전달하는 방법.
+![image](https://github.com/mamananama/tech_blog_project/assets/114140050/b7bd23ff-e901-4bb7-8834-dcd8216c7e74)
 
+위의 이미지는 "ROUTE" 탭은 Route 모델의 전체 항목을 조회하는 쿼리셋을 사용하고, 
+"많이 본 글" 탭은 Post 모델의 count를 기준으로 상위 10개 글을 조회하는 쿼리셋을 사용하고,
+"최근 작성 글" 탭은 Post 모델의 create_at를 기준으로 상위 10개 글을 조회하는 쿼리셋을 사용했습니다.
+메인페이지에서 하나의 뷰를 통해 2개 이상의 모델의 쿼리셋과 하나의 모델에서 2개 이상의 쿼리셋을 사용하려했습니다.
 
+최초에 `get_object` 메서드를 사용하여 쿼리셋을 전달하려고 했지만, 해당 메서드는 하나의 쿼리셋만 전달할 수 있습니다.
 
+```python
+class MainListView(ListView):
+    model = Route
+    template_name = "main/index.html"
+    context_object_name = 'routes'
+    
+    def get_object(self, queryset=None):
+        queryset = super().get_queryset()
+        queryset = Route.objects.all()
+        print(queryset)
+        return queryset
+```
+해당 방법만으로는 원하는 기능을 얻을 수 없었고, <br> 
+원하는 기능을 수행하기 위해 쿼리셋 별로 별도의 모델을 생성하고, 별도의 뷰를 사용하는 방법을 시도했습니다.
+
+하지만 하나의 쿼리셋을 수행하는 별도의 모델을 생성하는 것과, 뷰를 생성하여 그 뷰를 다른 뷰에 HTML \<embed\> 태그를 통해 원하는 뷰를 그리는 것이 매우 비효율적이라 생각했습니다.  
+
+여러가지 context를 전달하는 `get_context_date` 메서드를 확인하였고, 이를 통해 다수의 쿼리셋을 하나의 뷰에 전달할 수 있었습니다.
+```python
+class MainListView(ListView):
+    model = Route
+    template_name = "main/index.html"
+    context_object_name = 'routes'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        routes = Route.objects.all()
+        hit_posts = Post.objects.order_by('-count')[:10]
+        recent_posts = Post.objects.order_by('-created_at')[:10]
+
+        post_number = {}
+        route_status = {}
+        for route in context['routes']:
+            post_number[str(route)] = Post.objects.filter(
+                route__name__exact=str(route)).distinct().count()
+            route_status[str(route)] = route.status
+
+        context['routes'] = routes
+        context['hit_posts'] = hit_posts
+        context['recent_posts'] = recent_posts
+        context['post_number'] = post_number
+        context['route_status'] = route_status
+        return context
+```
 
 
 
