@@ -329,6 +329,7 @@ https://github.com/mamananama/tech_blog_project/assets/114140050/f68ec886-c872-4
 
 ### 전체 기능 둘러보기
 https://github.com/mamananama/tech_blog_project/assets/114140050/2a254ebc-7389-439a-b990-c42fb79dd653
+
 <br>
 <br>
 ---
