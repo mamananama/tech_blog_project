@@ -415,7 +415,7 @@ class PostDetailView(DetailView):
 이때, 해당 count 값을 Post 모델에 적용시키기 위해 `post.save()`를 통해 모델에 저장시켰습니다.<br> 
 
 Post 모델의 수정일을 나타내는 어트리뷰트는 updated_at으로, `updated_at = models.DateTimeField(auto_now=True)`로 정의했습니다.<br> 
-이 어트리뷰트는 'auto_now=True'를 통해 updated_at은 현재 시간의 값을 해당 post 튜플을 참조하는 순간 받아옵니다.<br> 
+이 updated_at은 'auto_now=True'를 통해 현재 시간의 값을 해당 post 튜플을 참조하는 순간 받아옵니다.<br> 
 그리고 `PostDetailView`의 `get_object`를 통해 새로 들어온 updated_at을 Post 모델에 반영하게 됩니다.
 
 이 문제는 `get_object`에서 Post 모델에 `post.count`에 저장할 필드를 따로 지정하지 않아, 모든 필드를 저장했기 때문에 발생했습니다.
