@@ -278,7 +278,7 @@ route 생성 페이지 입니다.<br>
 * 댓글을 작성할 수 있습니다.
 
   > ![image](https://github.com/mamananama/tech_blog_project/assets/114140050/c5912ba5-665f-4dc6-9ab8-ac14c8ed5761)
-  > * 댓글 현재 로그인한 계정이 댓글 작성자 본인과 일치하면 해당 댓글을 삭제할 수 있는 아이콘이 나타납니다.
+  > * 현재 로그인한 계정이 댓글 작성자 본인과 일치하면 해당 댓글을 삭제할 수 있는 아이콘이 나타납니다.
   >  ![image](https://github.com/mamananama/tech_blog_project/assets/114140050/9d498a8d-2774-4b57-8132-f5d4819844d0)
 
 
