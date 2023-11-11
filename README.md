@@ -333,7 +333,7 @@ https://github.com/mamananama/tech_blog_project/assets/114140050/2a254ebc-7389-4
 <br>
 ---
 ## 트러블슈팅
-### 하나의 View에서 복수의 모델 쿼리 또는 한 모델에서 복수의 쿼리 셋을 전달하는 방법.
+### 1. 하나의 View에서 복수의 모델 쿼리 또는 한 모델에서 복수의 쿼리 셋을 전달하는 방법.
 ![image](https://github.com/mamananama/tech_blog_project/assets/114140050/b7bd23ff-e901-4bb7-8834-dcd8216c7e74)
 
 위의 이미지는 "ROUTE" 탭은 Route 모델의 전체 항목을 조회하는 쿼리셋을 사용하고, 
@@ -389,6 +389,52 @@ class MainListView(ListView):
 ```
 
 
+
+### 2. Post의 글을 확인하는 순간 updated_at의 값이 변화하는 케이스의 해결.
+![image](https://github.com/mamananama/tech_blog_project/assets/114140050/b32970b4-e3eb-4c34-a9c7-7fb33d06a750)
+
+위의 이미지는 Post의 글을 새로 추가하는 경우, 나타나지 않아야할 '수정일' 항목이 나타나는 문제 현상이 나타난 상황입니다.<br> 
+또한 '수정하기' 버튼을 눌러, 글 수정을 Post 모델에 반영시키지 않았는데도 글을 열람하는 순간 매번 수정일이 글을 읽는 순간으로 변경되었습니다.
+
+
+해당 문제는 아래와 같이, `PostDetailView`의 `get_object` 메서드를 잘못 정의했기 때문에 발생했습니다.
+```python
+class PostDetailView(DetailView):
+    model = Post
+    template_name = 'route/post.html'
+    context_object_name = 'post'
+
+    def get_object(self, queryset=None):
+        pk = self.kwargs.get('pk')
+        post = Post.objects.get(pk=pk)
+        post.count += 1
+        post.save()
+        return super().get_object(queryset)
+```
+글을 열람하는 순간, 해당 post의 조회수를 나타내는 count 값이 1 증가되도록 `get_object` 메서드를 정의했습니다.<br> 
+이때, 해당 count 값을 Post 모델에 적용시키기 위해 `post.save()`를 통해 모델에 저장시켰습니다.<br> 
+
+Post 모델의 수정일을 나타내는 어트리뷰트는 updated_at으로, `updated_at = models.DateTimeField(auto_now=True)`로 정의했습니다.<br> 
+이 어트리뷰트는 'auto_now=True'를 통해 updated_at은 현재 시간의 값을 해당 post 튜플을 참조하는 순간 받아옵니다.<br> 
+그리고 `PostDetailView`의 `get_object`를 통해 새로 들어온 updated_at을 Post 모델에 반영하게 됩니다.
+
+이 문제는 `get_object`에서 Post 모델에 `post.count`에 저장할 필드를 따로 지정하지 않아, 모든 필드를 저장했기 때문에 발생했습니다.
+아래의 코드와 같이, `post.save(update_fields=('count',))`로 변화된 count 값만 update 되도록 설정했고,
+이후 해당 문제는 해결되었습니다.
+
+```python
+class PostDetailView(DetailView):
+    model = Post
+    template_name = 'route/post.html'
+    context_object_name = 'post'
+
+    def get_object(self, queryset=None):
+        pk = self.kwargs.get('pk')
+        post = Post.objects.get(pk=pk)
+        post.count += 1
+        post.save(update_fields=('count',))
+        return super().get_object(queryset)
+```
 
 
 
