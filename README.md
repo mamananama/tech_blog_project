@@ -93,7 +93,8 @@ Python Django를 사용하여 모놀리식 블로그를 만드는 프로젝트 �
 <br>
 
 ### ERD 설계
-![image](https://github.com/mamananama/tech_blog_project/assets/114140050/6bc562d5-90bf-49f9-b0f0-3cee265a42fb)
+![image](https://github.com/mamananama/tech_blog_project/assets/114140050/a46f0309-4e1b-49ef-998f-385323faf5da)
+
 > * 모델의 연결
 >   * User-Post : 일대다 연결
 >   * User-Route : 일대다 연결
