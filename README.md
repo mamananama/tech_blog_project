@@ -332,7 +332,9 @@ https://github.com/mamananama/tech_blog_project/assets/114140050/2a254ebc-7389-4
 
 <br>
 <br>
+
 ---
+
 ## 트러블슈팅
 ### 1. 하나의 View에서 복수의 모델 쿼리 또는 한 모델에서 복수의 쿼리 셋을 전달하는 방법.
 ![image](https://github.com/mamananama/tech_blog_project/assets/114140050/b7bd23ff-e901-4bb7-8834-dcd8216c7e74)
