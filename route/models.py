@@ -1,3 +1,4 @@
+from tinymce import models as tinymce_models
 from .validators import validate_file_size, validate_image_size
 from django.contrib.auth.models import User
 from django.db import models
@@ -54,3 +55,7 @@ class Comment(models.Model):
 
     def __str__(self):
         return self.message
+
+
+class MyModel(models.Model):
+    my_field = tinymce_models.HTMLField()

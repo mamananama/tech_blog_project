@@ -11,6 +11,7 @@ urlpatterns = [
     path('account/', include('account.urls')),
     path('station/', include('station.urls')),
     path('station/route/', include('route.urls')),
+    path('tinymce/', include('tinymce.urls')),
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

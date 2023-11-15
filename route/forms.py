@@ -1,3 +1,5 @@
+from tinymce.widgets import TinyMCE
+from django.contrib.flatpages.models import FlatPage
 from tkinter import Widget
 from django import forms
 from .models import Route, Post, Comment
@@ -60,3 +62,10 @@ class CommentForm(forms.ModelForm):
         labels = {
             'message': '',
         }
+
+
+class FlatPageForm(forms.ModelForm):
+
+    class Meta:
+        model = MyModel
+        widgets = {'content': TinyMCE(attrs={'cols': 80, 'rows': 30})}
