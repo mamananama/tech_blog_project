@@ -6,8 +6,8 @@ from django.db.models import Q
 from django.urls import is_valid_path, reverse_lazy, reverse
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 
-from .models import Post, Route, Comment
-from .forms import PostForm, RouteEditForm, CommentForm
+from .models import Post, Route, Comment, Page
+from .forms import PostForm, RouteEditForm, CommentForm, PageForm
 
 
 class PostListView(ListView):
@@ -194,3 +194,12 @@ post_delete = PostDeleteView.as_view()
 route_edit = RouteUpdate.as_view()
 post_comment = CommentCreateView.as_view()
 post_comment_delete = CommentDeleteView.as_view()
+
+
+class PostCreate(LoginRequiredMixin, CreateView):
+    model = Page
+    form_class = PageForm
+    template_name = 'station/create_test.html'
+
+
+post_create_test = PostCreate.as_view()

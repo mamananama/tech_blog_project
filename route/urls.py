@@ -16,4 +16,6 @@ urlpatterns = [
          views.post_comment, name='post_comment'),
     path('<str:tag_name>/<int:post_pk>/comment_delete/<int:pk>/',
          views.post_comment_delete, name='post_comment_delete'),
+    path('<str:tag_name>/create_test/',
+         views.post_create_test, name='post_create_test'),
 ]

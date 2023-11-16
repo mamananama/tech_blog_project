@@ -1,0 +1,20 @@
+{% extends "base.html" %} {% block page_content %}
+<div class="page-title">
+	<h2>{{page_title}}</h2>
+</div>
+<div class="main-container">
+	<div class="profile shadow-bottom form-post">
+		<div class="menu-area">
+			<div class="sub-menu">
+				<div
+					class="btn"
+					onclick='location.href="{{request.path}}.."'
+					style="cursor: pointer">
+					취소
+				</div>
+			</div>
+		</div>
+		{{ form.media }}
+	</div>
+</div>
+{% endblock page_content %}

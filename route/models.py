@@ -1,4 +1,4 @@
-from tinymce import models as tinymce_models
+from froala_editor.fields import FroalaField
 from .validators import validate_file_size, validate_image_size
 from django.contrib.auth.models import User
 from django.db import models
@@ -57,5 +57,5 @@ class Comment(models.Model):
         return self.message
 
 
-class MyModel(models.Model):
-    my_field = tinymce_models.HTMLField()
+class Page(models.Model):
+    content = FroalaField()

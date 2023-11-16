@@ -1,8 +1,7 @@
-from tinymce.widgets import TinyMCE
-from django.contrib.flatpages.models import FlatPage
-from tkinter import Widget
+from pyexpat import model
+from froala_editor.widgets import FroalaEditor
 from django import forms
-from .models import Route, Post, Comment
+from .models import Route, Post, Comment, Page
 
 
 class PostForm(forms.ModelForm):
@@ -64,8 +63,7 @@ class CommentForm(forms.ModelForm):
         }
 
 
-class FlatPageForm(forms.ModelForm):
-
+class PageForm(forms.ModelForm):
     class Meta:
-        model = MyModel
-        widgets = {'content': TinyMCE(attrs={'cols': 80, 'rows': 30})}
+        model = Page
+        content = forms.CharField(widget=FroalaEditor)

@@ -25,7 +25,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = str(os.getenv('SECRET_KEY'))
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ['*']
 
@@ -41,7 +41,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     # 3rd-party apps
-    'tinymce',
+    'froala_editor',
 
     # custom apps
     'main',

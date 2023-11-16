@@ -4,6 +4,7 @@ from django.conf.urls.static import static
 from django.conf import settings
 from django.views.static import serve
 from django.urls import re_path
+from froala_editor import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -11,7 +12,7 @@ urlpatterns = [
     path('account/', include('account.urls')),
     path('station/', include('station.urls')),
     path('station/route/', include('route.urls')),
-    path('tinymce/', include('tinymce.urls')),
+    path('froala_editor/', include('froala_editor.urls'))
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
